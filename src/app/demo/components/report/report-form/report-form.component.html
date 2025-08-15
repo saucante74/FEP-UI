@@ -1,1 +1,41 @@
-<p>report-form works!</p>
+<div class="card p-fluid">
+    <h2>Créer un signalement</h2>
+
+    <div class="formgrid grid">
+        <div class="field col-4">
+            <label for="reason">Motif</label>
+            <p-dropdown
+                [options]="reasons"
+                [(ngModel)]="report.reason"
+                optionLabel="name"
+                optionValue="code"
+                placeholder="Sélectionner un motif"
+                inputId="reason"
+            ></p-dropdown>
+        </div>
+
+        <div class="field col-4">
+            <label for="status">Statut</label>
+            <input id="status" type="text" pInputText [(ngModel)]="report.status" />
+        </div>
+
+        <div class="field col-4">
+            <label for="reporterEmail">Email du rapporteur</label>
+            <input id="reporterEmail" type="email" pInputText [(ngModel)]="report.reporterEmail" />
+        </div>
+
+        <div class="field col-6">
+            <label for="reportedUserEmail">Email de l'utilisateur signalé</label>
+            <input id="reportedUserEmail" type="email" pInputText [(ngModel)]="report.reportedUserEmail" />
+        </div>
+
+        <div class="field col-6">
+            <label for="reportDate">Date du rapport</label>
+            <input id="reportDate" type="date" pInputText [(ngModel)]="report.reportDate" />
+        </div>
+    </div>
+
+    <div class="mt-3 field col-6 col-offset-3">
+        <button pButton type="button" label="Envoyer le signalement" (click)="submitReport()"></button>
+    </div>
+</div>

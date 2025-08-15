@@ -22,6 +22,7 @@ export class AppMenuComponent implements OnInit {
                     { label: 'Loan New', icon: 'pi pi-fw pi-home', routerLink: ['/loan/request'] },
                     { label: 'Refund List', icon: 'pi pi-fw pi-home', routerLink: ['/refund/list'] },
                     { label: 'Report List', icon: 'pi pi-fw pi-home', routerLink: ['/report/list'] },
+                    { label: 'Report Form', icon: 'pi pi-fw pi-home', routerLink: ['/report/form'] },
                     { label: 'TDB', icon: 'pi pi-fw pi-home', routerLink: ['/tdb/view'] },
                 ]
             },

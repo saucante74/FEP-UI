@@ -1,0 +1,7 @@
+export enum LoanStatusEnum {
+  PENDING = 'PENDING',
+  VALIDATED = 'VALIDATED',
+  REJECTED = 'REJECTED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  REPAID = 'REPAID'
+}

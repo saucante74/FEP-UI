@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SettingRoutingModule } from "./setting-routing.module";
-import { ConfigurationService } from "../../service/configuration.service";
 
 
 @NgModule({
@@ -10,6 +9,6 @@ import { ConfigurationService } from "../../service/configuration.service";
     CommonModule,
     SettingRoutingModule
   ],
-    providers: [ConfigurationService],
+    providers: [],
 })
 export class SettingModule { }

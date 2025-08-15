@@ -18,7 +18,7 @@ export class AppTopBarComponent {
 
     items!: MenuItem[];
 
-    isDarkMode: boolean = true;
+    isDarkMode: boolean = false;
 
     @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -36,7 +36,7 @@ export class AppTopBarComponent {
     }
 
     changeTheme() {
-        const theme = this.theme === VELA_GREEN_THEME ? SAGA_GREEN_THEME : VELA_GREEN_THEME;
+        const theme = this.theme === SAGA_GREEN_THEME ? VELA_GREEN_THEME : SAGA_GREEN_THEME;
         this.layoutService.config.update((config) => ({
             ...config,
             theme: theme,
@@ -44,7 +44,7 @@ export class AppTopBarComponent {
     }
 
     changeColorScheme() {
-        const colorScheme = this.colorScheme === DARK_COLORSCHEME ? LIGHT_COLORSCHEME : DARK_COLORSCHEME;
+        const colorScheme = this.colorScheme === LIGHT_COLORSCHEME ? DARK_COLORSCHEME : LIGHT_COLORSCHEME;
         this.layoutService.config.update((config) => ({
             ...config,
             colorScheme: colorScheme,

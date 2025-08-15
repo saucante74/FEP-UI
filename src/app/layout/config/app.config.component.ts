@@ -12,8 +12,7 @@ export class AppConfigComponent {
     scales: number[] = [12, 13, 14, 15, 16];
 
     constructor(
-        public layoutService: LayoutService,
-        public menuService: MenuService
+        public layoutService: LayoutService
     ) {}
 
     get visible(): boolean {

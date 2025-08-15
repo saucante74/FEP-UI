@@ -11,14 +11,11 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                 children: [
                     { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'homepage', loadChildren: () => import('./demo/components/homepage/homepage.module').then(m => m.HomepageModule) },
-                    { path: 'portfolio', loadChildren: () => import('./demo/components/portfolio/portfolio.module').then(m => m.PortfolioModule) },
-                    { path: 'asset', loadChildren: () => import('./demo/components/asset/asset.module').then(m => m.AssetModule) },
-                    { path: 'transaction', loadChildren: () => import('./demo/components/transaction/transaction.module').then(m => m.TransactionModule) },
-                    { path: 'income', loadChildren: () => import('./demo/components/income/income.module').then(m => m.IncomeModule) },
-                    { path: 'portfolio-dashboard', loadChildren: () => import('./demo/components/portfolio-dashboard/portfolio-dashboard.module').then(m => m.PortfolioDashboardModule) },
+                    { path: 'loan', loadChildren: () => import('./demo/modules/loan/loan.module').then(m => m.LoanModule) },
+                    { path: 'refund', loadChildren: () => import('./demo/modules/refund/refund.module').then(m => m.RefundModule) },
+                    { path: 'report', loadChildren: () => import('./demo/modules/report/report.module').then(m => m.ReportModule) },
                     { path: 'settings', loadChildren: () => import('./demo/components/setting/setting.module').then(m => m.SettingModule) },
-                    { path: 'documentation', loadChildren: () => import('./demo/components/documentation/documentation.module').then(m => m.DocumentationModule) },
-                    { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) }
+                    { path: 'tdb', loadChildren: () => import('./demo/modules/dashboard/dashboard.module').then(m => m.DashboardModule) },
                 ]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },

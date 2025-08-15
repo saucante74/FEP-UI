@@ -18,7 +18,11 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     { label: 'Homepage', icon: 'pi pi-fw pi-home', routerLink: ['/homepage'] },
                     { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
-                    { label: 'Portfolios', icon: 'pi pi-fw pi-home', routerLink: ['/portfolio-dashboard'] },
+                    { label: 'Loan List', icon: 'pi pi-fw pi-home', routerLink: ['/loan/list'] },
+                    { label: 'Loan New', icon: 'pi pi-fw pi-home', routerLink: ['/loan/request'] },
+                    { label: 'Refund List', icon: 'pi pi-fw pi-home', routerLink: ['/refund/list'] },
+                    { label: 'Report List', icon: 'pi pi-fw pi-home', routerLink: ['/report/list'] },
+                    { label: 'TDB', icon: 'pi pi-fw pi-home', routerLink: ['/tdb/view'] },
                 ]
             },
             {
@@ -26,15 +30,6 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     { label: 'Settings', icon: 'pi pi-fw pi-home', routerLink: ['/settings'] },
                 ]
-            },
-            {
-                label: 'Control Panel',
-                items: [
-                    { label: 'Portfolio Management', icon: 'pi pi-fw pi-home', routerLink: ['/portfolio/add-portfolio'] },
-                    { label: 'Asset Management', icon: 'pi pi-fw pi-home', routerLink: ['/asset/add-asset'] },
-                    { label: 'Transaction Management', icon: 'pi pi-fw pi-home', routerLink: ['/transaction/add-transaction'] },
-                    { label: 'Income Management', icon: 'pi pi-fw pi-home', routerLink: ['/income/add-income'] },
-                ],
             },
             {
                 label: 'Authentication',

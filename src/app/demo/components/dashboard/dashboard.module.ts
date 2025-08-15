@@ -9,7 +9,6 @@ import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { DashboardsRoutingModule } from './dashboard-routing.module';
-import { SharedModule } from '../../shared/shared.module'
 
 @NgModule({
     imports: [
@@ -22,7 +21,6 @@ import { SharedModule } from '../../shared/shared.module'
         PanelMenuModule,
         ButtonModule,
         DashboardsRoutingModule,
-        SharedModule
     ],
     declarations: [
         DashboardComponent

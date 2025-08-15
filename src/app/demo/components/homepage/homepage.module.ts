@@ -9,7 +9,6 @@ import { TableModule } from "primeng/table";
 import { StyleClassModule } from "primeng/styleclass";
 import { PanelMenuModule } from "primeng/panelmenu";
 import { ButtonModule } from "primeng/button";
-import { SharedModule } from '../../shared/shared.module'
 
 
 @NgModule({
@@ -23,7 +22,6 @@ import { SharedModule } from '../../shared/shared.module'
         PanelMenuModule,
         ButtonModule,
         HomepageRoutingModule,
-        SharedModule
     ],
     declarations: [
         HomepageComponent

@@ -3,11 +3,10 @@ import { PrimeNGConfig } from 'primeng/api';
 import { AppConfig, LayoutService } from "./layout/service/app.layout.service";
 import {
     DARK_COLORSCHEME,
-    INPUT_STYLE,
+    INPUT_STYLE, LIGHT_COLORSCHEME,
     MENU_MODE,
     RIPPLE,
-    SCALE_VALUE,
-    VELA_GREEN_THEME
+    SCALE_VALUE
 } from "./layout/config/config.constants";
 
 @Component({
@@ -30,7 +29,7 @@ export class AppComponent implements OnInit {
             ripple: RIPPLE,
             inputStyle: INPUT_STYLE,
             menuMode: MENU_MODE,
-            colorScheme: DARK_COLORSCHEME,
+            colorScheme: LIGHT_COLORSCHEME,
             theme: theme,
             scale: SCALE_VALUE
         };

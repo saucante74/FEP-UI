@@ -1,0 +1,37 @@
+<div class="card">
+    <p-table
+        [value]="loans"
+        [paginator]="true"
+        [rows]="rows"
+        [first]="first"
+        [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} prêts"
+        (onPage)="pageChange($event)"
+        [rowsPerPageOptions]="[5, 10, 25, 50]"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Montant</th>
+                <th>Taux d'intérêt</th>
+                <th>Durée (mois)</th>
+                <th>Statut</th>
+                <th>ID Emprunteur</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-loan>
+            <tr>
+                <td>{{ loan.amount | currency:'EUR' }}</td>
+                <td>{{ loan.interestRate }} %</td>
+                <td>{{ loan.durationInMonths }}</td>
+                <td>{{ loan.status }}</td>
+                <td>{{ loan.borrowerId }}</td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="paginatorleft">
+            <p-button type="button" icon="pi pi-plus" text></p-button>
+        </ng-template>
+    </p-table>
+</div>

@@ -16,16 +16,29 @@ export interface LoanResponseDTO {
 })
 export class LoanListComponent implements OnInit {
     loans: LoanResponseDTO[] = [];
+    filteredLoans: LoanResponseDTO[] = [];
+
     first: number = 0;
     rows: number = 5;
+
+    interestRateFilter: number | null = null;
+    durationFilter: number | null = null;
+    statusFilter: string = '';
+
+    statuses = [
+        { name: 'TOUS', code: '' },
+        { name: 'PENDING', code: 'PENDING' },
+        { name: 'IN_PROGRESS', code: 'IN_PROGRESS' },
+        { name: 'COMPLETED', code: 'COMPLETED' }
+    ];
 
     constructor(private http: HttpClient) {}
 
     ngOnInit() {
         this.http.get<LoanResponseDTO[]>('/api/loans').subscribe({
             next: (data) => {
-                console.log('Données mockées /api/loans :', data);
                 this.loans = data;
+                this.filteredLoans = data;
             },
             error: (err) => {
                 console.error('Erreur lors du fetch /api/loans', err);
@@ -33,20 +46,29 @@ export class LoanListComponent implements OnInit {
         });
     }
 
-    next() {
-        this.first = this.first + this.rows;
+    applyFilters() {
+        this.filteredLoans = this.loans.filter(loan => {
+            const matchesRate = this.interestRateFilter === null || loan.interestRate === this.interestRateFilter;
+            const matchesDuration = this.durationFilter === null || loan.durationInMonths === this.durationFilter;
+            const matchesStatus = this.statusFilter === '' || loan.status === this.statusFilter;
+            return matchesRate && matchesDuration && matchesStatus;
+        });
+        this.reset();
     }
 
-    prev() {
-        this.first = this.first - this.rows;
+    resetFilters() {
+        this.interestRateFilter = null;
+        this.durationFilter = null;
+        this.statusFilter = '';
+        this.applyFilters();
     }
 
-    reset() {
-        this.first = 0;
-    }
+    next() { this.first += this.rows; }
+    prev() { this.first -= this.rows; }
+    reset() { this.first = 0; }
 
     isLastPage(): boolean {
-        return this.loans ? this.first >= (this.loans.length - this.rows) : true;
+        return this.filteredLoans ? this.first >= (this.filteredLoans.length - this.rows) : true;
     }
 
     isFirstPage(): boolean {

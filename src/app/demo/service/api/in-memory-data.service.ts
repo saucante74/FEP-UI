@@ -5,6 +5,7 @@ import { RefundStatus } from '../../models/refund/refund-status.enum';
 import { ReportReason } from '../../models/report/report-reason.enum';
 import { UserRole } from '../../models/user/user-role.enum';
 import { UserStatus } from '../../models/user/user-status.enum';
+import { DashboardStatsDTO } from "../../models/dashboard/dashboard-stats.dto";
 
 @Injectable({
     providedIn: 'root',
@@ -12,36 +13,45 @@ import { UserStatus } from '../../models/user/user-status.enum';
 export class InMemoryDataService implements InMemoryDbService {
 
     createDb() {
-        const users = [
-            { id: 1, firstName: 'Alice', lastName: 'Dupont', email: 'alice@example.com', password: 'secret', role: UserRole.BORROWER, status: UserStatus.VALIDATED },
-            { id: 2, firstName: 'Bob', lastName: 'Martin', email: 'bob@example.com', password: 'secret', role: UserRole.LENDER, status: UserStatus.VALIDATED },
-            { id: 3, firstName: 'Claire', lastName: 'Durand', email: 'claire@example.com', password: 'secret', role: UserRole.ADMIN, status: UserStatus.VALIDATED }
-        ];
+        const users = [];
+        const loans = [];
+        const refunds = this.getRefunds();
 
-        const loans = [
-            { id: 1, amount: 5000, interestRate: 5, durationInMonths: 12, status: LoanStatusEnum.PENDING, borrowerId: 1 },
-            { id: 2, amount: 10000, interestRate: 4, durationInMonths: 24, status: LoanStatusEnum.IN_PROGRESS, borrowerId: 2 },
-            { id: 3, amount: 12000, interestRate: 4, durationInMonths: 24, status: LoanStatusEnum.IN_PROGRESS, borrowerId: 2 },
-            { id: 4, amount: 14000, interestRate: 4, durationInMonths: 24, status: LoanStatusEnum.IN_PROGRESS, borrowerId: 2 },
-            { id: 5, amount: 1000, interestRate: 4, durationInMonths: 24, status: LoanStatusEnum.IN_PROGRESS, borrowerId: 3 },
-            { id: 6, amount: 17000, interestRate: 4, durationInMonths: 24, status: LoanStatusEnum.IN_PROGRESS, borrowerId: 2 },
-            { id: 7, amount: 10000, interestRate: 4, durationInMonths: 24, status: LoanStatusEnum.IN_PROGRESS, borrowerId: 4 },
-        ];
+        const dashboardStats: DashboardStatsDTO = {
+            totalFinanced: 1250000,
+            totalRevenue: 21000,
+            totalCustomers: 28441,
+            newCustomers: 520,
+            unreadComments: 152,
+            respondedComments: 85,
+            loansInProgress: 134,
+            loansRepaid: 89,
+            refundsInProgress: 12,
+            lastUpdate: new Date().toISOString(),
+            monthlyRefunds: [
+                { month: '2025-01', totalAmount: 800 },
+                { month: '2025-02', totalAmount: 1650 },
+                { month: '2025-03', totalAmount: 1950 },
+                { month: '2025-04', totalAmount: 1300 },
+                { month: '2025-05', totalAmount: 1900 },
+                { month: '2025-06', totalAmount: 1900 },
+                { month: '2025-07', totalAmount: 2200 },
+                { month: '2025-08', totalAmount: 2050 },
+                { month: '2025-09', totalAmount: 2000 },
+                { month: '2025-10', totalAmount: 2500 },
+                { month: '2025-11', totalAmount: 1900 },
+                { month: '2025-12', totalAmount: 450 }
+            ]
+        };
 
-        const refunds = [
-            { id: 1, loanId: 2, amount: 500, refundDate: '2025-08-01', status: RefundStatus.APPROVED },
-            { id: 2, loanId: 2, amount: 500, refundDate: '2025-09-01', status: RefundStatus.PENDING }
-        ];
-
-        const reports = [
-            { id: 1, reason: ReportReason.FRAUD, reporterEmail: 'alice@example.com', reportedUserEmail: 'bob@example.com', reportDate: '2025-08-01', status: ReportReason.FRAUD },
-            { id: 2, reason: ReportReason.SPAM, reporterEmail: 'claire@example.com', reportedUserEmail: 'alice@example.com', reportDate: '2025-08-05', status: ReportReason.SPAM }
-        ];
-
-        return { users, loans, refunds, reports };
+        return { users, loans, refunds, dashboardStats };
     }
 
     genId<T extends { id: number }>(collection: T[]): number {
         return collection.length > 0 ? Math.max(...collection.map(item => item.id)) + 1 : 1;
+    }
+
+    getRefunds() {
+        return [];
     }
 }

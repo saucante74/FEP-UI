@@ -2,13 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ReportRoutingModule } from './report-routing.module';
+import { ReportListComponent } from "../../components/report/report-list/report-list.component";
+import { ReportFormComponent } from "../../components/report/report-form/report-form.component";
+import { ButtonModule } from "primeng/button";
+import { TableModule } from "primeng/table";
 
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    ReportRoutingModule
-  ]
+  declarations: [
+      ReportListComponent,
+      ReportFormComponent
+  ],
+    imports: [
+        CommonModule,
+        ReportRoutingModule,
+        ButtonModule,
+        TableModule
+    ]
 })
 export class ReportModule { }

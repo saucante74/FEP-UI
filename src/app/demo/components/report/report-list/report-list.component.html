@@ -1,1 +1,41 @@
-<p>report-list works!</p>
+<div class="card">
+    <h2>Liste des signalements</h2>
+    <p-table
+    [value]="reports"
+    [paginator]="true"
+    [rows]="rows"
+    [first]="first"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '60rem' }"
+    currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} rapports"
+    (onPage)="pageChange($event)"
+    [rowsPerPageOptions]="[5, 10, 25, 50]"
+    >
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Motif</th>
+            <th>Expéditeur</th>
+            <th>Utilisateur signalé</th>
+            <th>Date</th>
+            <th>Statut</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-report>
+        <tr>
+            <td>{{ report.id }}</td>
+            <td>{{ report.reason }}</td>
+            <td>{{ report.reporterEmail }}</td>
+            <td>{{ report.reportedUserEmail }}</td>
+            <td>{{ report.reportDate | date:'dd/MM/yyyy' }}</td>
+            <td>{{ report.status }}</td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorleft">
+        <p-button type="button" icon="pi pi-plus" text></p-button>
+    </ng-template>
+
+    </p-table>
+</div>

@@ -1,93 +1,111 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardStatsDTO } from "../../../models/dashboard/dashboard-stats.dto";
+import { DashboardStatsDTO } from "../../../dtos/dashboard/dashboard-stats.dto";
 import { HttpClient } from "@angular/common/http";
+import { LayoutService } from "../../../../layout/service/app.layout.service";
+import { debounceTime, Subscription } from "rxjs";
 
 @Component({
     selector: 'app-dashboard',
-    templateUrl: './dashboard-view.component.html'
+    templateUrl: './dashboard-view.component.html',
 })
 export class DashboardViewComponent implements OnInit {
     chartData: any;
     chartOptions: any;
     stats!: DashboardStatsDTO;
+    subscription!: Subscription;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private layoutService: LayoutService) {
+        this.subscription = this.layoutService.configUpdate$
+            .pipe(debounceTime(25))
+            .subscribe(() => this.initChart());
+    }
 
     ngOnInit() {
-        this.http.get<DashboardStatsDTO>('/api/dashboardStats')
-            .subscribe(data => {
-                this.stats = data;
+        this.http.get<DashboardStatsDTO>('/api/dashboardStats').subscribe(data => {
+            this.stats = data;
+            this.initChart();
+        });
+    }
 
-                const labels = data.monthlyRefunds.map(r => {
-                    const [year, month] = r.month.split('-');
-                    return new Date(+year, +month - 1).toLocaleString('default', { month: 'short' });
-                });
+    initChart() {
+        if (!this.stats) return;
 
-                const personalWallet = data.monthlyRefunds.map(r => r.totalAmount);
-                const corporateWallet = data.monthlyRefunds.map(r => r.totalAmount * 0.75);
-                const investmentWallet = data.monthlyRefunds.map(r => r.totalAmount * 0.5);
+        const documentStyle = getComputedStyle(document.documentElement);
+        const textColor = documentStyle.getPropertyValue('--text-color');
+        const borderColor = documentStyle.getPropertyValue('--surface-border');
+        const textMutedColor = documentStyle.getPropertyValue('--text-color-secondary');
 
-                this.chartData = {
-                    labels,
-                    datasets: [
-                        {
-                            label: 'Personal Wallet',
-                            backgroundColor: '#42A5F5',
-                            data: personalWallet
-                        },
-                        {
-                            label: 'Corporate Wallet',
-                            backgroundColor: '#66BB6A',
-                            data: corporateWallet
-                        },
-                        {
-                            label: 'Investment Wallet',
-                            backgroundColor: '#FFA726',
-                            data: investmentWallet
-                        }
-                    ]
-                };
+        const labels = this.stats.refunds.monthlyRefunds.map(r => {
+            const [year, month] = r.month.split('-');
+            return new Date(+year, +month - 1).toLocaleString('default', { month: 'short' });
+        });
 
-                this.chartOptions = {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                color: '#495057',
-                                font: {
-                                    size: 14
-                                }
-                            }
-                        }
+        this.chartData = {
+            labels,
+            datasets: [
+                {
+                    type: 'bar',
+                    label: 'Remboursé',
+                    backgroundColor: documentStyle.getPropertyValue('--green-700'),
+                    data: this.stats.refunds.monthlyRefunds.map(r => r.refundedAmount),
+                    barThickness: 32
+                },
+                {
+                    type: 'bar',
+                    label: 'En retard',
+                    backgroundColor: documentStyle.getPropertyValue('--green-500'),
+                    data: this.stats.refunds.monthlyRefunds.map(r => r.lateAmount),
+                    barThickness: 32
+                },
+                {
+                    type: 'bar',
+                    label: 'Attendu',
+                    backgroundColor: documentStyle.getPropertyValue('--green-300'),
+                    data: this.stats.refunds.monthlyRefunds.map(r => r.expectedAmount),
+                    borderRadius: {
+                        topLeft: 8,
+                        topRight: 8,
+                        bottomLeft: 0,
+                        bottomRight: 0
                     },
-                    scales: {
-                        x: {
-                            stacked: false,
-                            ticks: {
-                                color: '#495057',
-                                font: {
-                                    size: 12
-                                }
-                            },
-                            grid: {
-                                display: false
-                            }
-                        },
-                        y: {
-                            stacked: false,
-                            ticks: {
-                                color: '#495057',
-                                font: {
-                                    size: 12
-                                }
-                            },
-                            grid: {
-                                color: '#ebedef'
-                            }
-                        }
+                    borderSkipped: false,
+                    barThickness: 32
+                }
+            ]
+        };
+
+        this.chartOptions = {
+            maintainAspectRatio: false,
+            aspectRatio: 0.8,
+            plugins: {
+                legend: {
+                    labels: { color: textColor }
+                }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    ticks: { color: textMutedColor },
+                    grid: { color: 'transparent', borderColor: 'transparent' }
+                },
+                y: {
+                    stacked: true,
+                    ticks: { color: textMutedColor },
+                    grid: {
+                        color: borderColor,
+                        borderColor: 'transparent',
+                        drawTicks: false
                     }
-                };
-            });
+                }
+            }
+        };
+    }
+
+
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }

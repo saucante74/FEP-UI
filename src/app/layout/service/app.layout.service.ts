@@ -52,6 +52,8 @@ export class LayoutService {
 
     overlayOpen$ = this.overlayOpen.asObservable();
 
+    isMenuOpen: boolean = false;
+
     constructor() {
         effect(() => {
             const config = this.config();
@@ -71,6 +73,7 @@ export class LayoutService {
     }
 
     onMenuToggle() {
+        this.isMenuOpen = !this.isMenuOpen;
         if (this.isOverlay()) {
             this.state.overlayMenuActive = !this.state.overlayMenuActive;
             if (this.state.overlayMenuActive) {

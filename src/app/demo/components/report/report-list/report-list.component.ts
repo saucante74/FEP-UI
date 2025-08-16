@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ReportResponseDTO } from '../../../models/report/report.response.dto';
+import { ReportResponseDTO } from '../../../dtos/report/report.response.dto';
 
 @Component({
     selector: 'app-report-list',

@@ -5,5 +5,5 @@ export interface RefundResponseDTO {
   amount: number;
   refundDate: string;
   status: RefundStatus;
-  loanId: number;
+  loanReference: string;
 }

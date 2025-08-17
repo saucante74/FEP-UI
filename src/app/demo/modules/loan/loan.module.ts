@@ -8,12 +8,14 @@ import { LoanRequestComponent } from "../../components/loan/loan-request/loan-re
 import { DropdownModule } from "primeng/dropdown";
 import { FormsModule } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
+import { LoanMarketplaceComponent } from "../../components/loan/loan-marketplace/loan-marketplace.component";
 
 
 @NgModule({
   declarations: [
       LoanListComponent,
       LoanRequestComponent,
+      LoanMarketplaceComponent
   ],
     imports: [
         CommonModule,

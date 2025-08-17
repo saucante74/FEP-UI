@@ -32,7 +32,8 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Marché',
                 items: [
-                    { label: 'Trouver un prêt', icon: 'pi pi-desktop', routerLink: ['/market'] },
+                    { label: 'Trouver un prêt', icon: 'pi pi-desktop', routerLink: ['/loan/marketplace'] },
+                    { label: 'Proposer un prêt', icon: 'pi pi-plus', routerLink: ['/loan/request'] },
                 ]
             },
             // {

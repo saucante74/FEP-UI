@@ -3,6 +3,7 @@ export interface MonthlyRefundDTO {
     refundedAmount: number;
     expectedAmount: number;
     lateAmount: number;
+    unpaidAmount: number;
 }
 
 export interface UpcomingRefundDTO {

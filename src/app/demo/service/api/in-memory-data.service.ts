@@ -44,8 +44,8 @@ export class InMemoryDataService implements InMemoryDbService {
             global: {
                 totalFinanced: 1250000,
                 totalRevenue: 21000,
-                totalCustomers: 28441,
-                newCustomers: 520,
+                totalCustomers: 17,
+                newCustomers: 4,
                 loansInProgress: 134,
                 loansRepaid: 89,
                 refundsInProgress: 12
@@ -57,18 +57,18 @@ export class InMemoryDataService implements InMemoryDbService {
             },
             refunds: {
                 monthlyRefunds: [
-                    { month: '2025-01', refundedAmount: 600, expectedAmount: 800, lateAmount: 200 },
-                    { month: '2025-02', refundedAmount: 1400, expectedAmount: 1650, lateAmount: 250 },
-                    { month: '2025-03', refundedAmount: 1700, expectedAmount: 1950, lateAmount: 250 },
-                    { month: '2025-04', refundedAmount: 1100, expectedAmount: 1300, lateAmount: 200 },
-                    { month: '2025-05', refundedAmount: 1600, expectedAmount: 1900, lateAmount: 300 },
-                    { month: '2025-06', refundedAmount: 1700, expectedAmount: 1900, lateAmount: 200 },
-                    { month: '2025-07', refundedAmount: 2000, expectedAmount: 2200, lateAmount: 200 },
-                    { month: '2025-08', refundedAmount: 1850, expectedAmount: 2050, lateAmount: 200 },
-                    { month: '2025-09', refundedAmount: 1750, expectedAmount: 2000, lateAmount: 250 },
-                    { month: '2025-10', refundedAmount: 2300, expectedAmount: 2500, lateAmount: 200 },
-                    { month: '2025-11', refundedAmount: 1700, expectedAmount: 1900, lateAmount: 200 },
-                    { month: '2025-12', refundedAmount: 300, expectedAmount: 450, lateAmount: 150 }
+                    { month: '2025-01', refundedAmount: 600, expectedAmount: 800, lateAmount: 200, unpaidAmount: 1000 },
+                    { month: '2025-02', refundedAmount: 1400, expectedAmount: 1650, lateAmount: 250, unpaidAmount: 700 },
+                    { month: '2025-03', refundedAmount: 1700, expectedAmount: 1950, lateAmount: 250, unpaidAmount: 1200 },
+                    { month: '2025-04', refundedAmount: 1100, expectedAmount: 1300, lateAmount: 200, unpaidAmount: 300 },
+                    { month: '2025-05', refundedAmount: 1600, expectedAmount: 1900, lateAmount: 300, unpaidAmount: 0 },
+                    { month: '2025-06', refundedAmount: 1700, expectedAmount: 1900, lateAmount: 200, unpaidAmount: 0 },
+                    { month: '2025-07', refundedAmount: 2000, expectedAmount: 2200, lateAmount: 200, unpaidAmount: 0 },
+                    { month: '2025-08', refundedAmount: 1850, expectedAmount: 2050, lateAmount: 200, unpaidAmount: 0 },
+                    { month: '2025-09', refundedAmount: 0, expectedAmount: 2000, lateAmount: 0, unpaidAmount: 0 },
+                    { month: '2025-10', refundedAmount: 0, expectedAmount: 2500, lateAmount: 0, unpaidAmount: 0 },
+                    { month: '2025-11', refundedAmount: 0, expectedAmount: 1900, lateAmount: 0, unpaidAmount: 0 },
+                    { month: '2025-12', refundedAmount: 0, expectedAmount: 450, lateAmount: 0, unpaidAmount: 0 }
                 ],
                 pendingRefundsAmount: 12000,
                 expectedRevenueNextMonth: 1800,

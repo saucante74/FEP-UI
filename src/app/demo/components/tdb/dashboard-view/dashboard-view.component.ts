@@ -14,6 +14,9 @@ export class DashboardViewComponent implements OnInit {
     stats!: DashboardStatsDTO;
     subscription!: Subscription;
 
+    totalUnpaidAmount: number = 0;
+    unpaidMonthsCount: number = 0;
+
     constructor(private http: HttpClient, private layoutService: LayoutService) {
         this.subscription = this.layoutService.configUpdate$
             .pipe(debounceTime(25))
@@ -23,6 +26,13 @@ export class DashboardViewComponent implements OnInit {
     ngOnInit() {
         this.http.get<DashboardStatsDTO>('/api/dashboardStats').subscribe(data => {
             this.stats = data;
+
+            this.totalUnpaidAmount = this.stats.refunds.monthlyRefunds
+                .reduce((sum, r) => sum + (r.unpaidAmount || 0), 0);
+
+            this.unpaidMonthsCount = this.stats.refunds.monthlyRefunds
+                .filter(r => (r.unpaidAmount || 0) > 0).length;
+
             this.initChart();
         });
     }
@@ -52,8 +62,15 @@ export class DashboardViewComponent implements OnInit {
                 },
                 {
                     type: 'bar',
+                    label: 'Impayé',
+                    backgroundColor: documentStyle.getPropertyValue('--red-300'),
+                    data: this.stats.refunds.monthlyRefunds.map(r => r.unpaidAmount),
+                    barThickness: 32
+                },
+                {
+                    type: 'bar',
                     label: 'En retard',
-                    backgroundColor: documentStyle.getPropertyValue('--green-500'),
+                    backgroundColor: documentStyle.getPropertyValue('--orange-200'),
                     data: this.stats.refunds.monthlyRefunds.map(r => r.lateAmount),
                     barThickness: 32
                 },
@@ -70,7 +87,7 @@ export class DashboardViewComponent implements OnInit {
                     },
                     borderSkipped: false,
                     barThickness: 32
-                }
+                },
             ]
         };
 

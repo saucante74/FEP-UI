@@ -14,7 +14,7 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                     { path: 'refund', loadChildren: () => import('./demo/modules/refund/refund.module').then(m => m.RefundModule) },
                     { path: 'report', loadChildren: () => import('./demo/modules/report/report.module').then(m => m.ReportModule) },
                     { path: 'settings', loadChildren: () => import('./demo/components/setting/setting.module').then(m => m.SettingModule) },
-                    { path: 'tdb', loadChildren: () => import('./demo/modules/dashboard/dashboard.module').then(m => m.DashboardModule) },
+                    { path: 'dashboard', loadChildren: () => import('./demo/modules/dashboard/dashboard.module').then(m => m.DashboardModule) }
                 ]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
@@ -24,5 +24,4 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
     ],
     exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

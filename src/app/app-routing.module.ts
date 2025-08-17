@@ -9,8 +9,7 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
             {
                 path: '', component: AppLayoutComponent,
                 children: [
-                    { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
-                    { path: 'homepage', loadChildren: () => import('./demo/components/homepage/homepage.module').then(m => m.HomepageModule) },
+                    { path: '', loadChildren: () => import('./demo/components/homepage/homepage.module').then(m => m.HomepageModule) },
                     { path: 'loan', loadChildren: () => import('./demo/modules/loan/loan.module').then(m => m.LoanModule) },
                     { path: 'refund', loadChildren: () => import('./demo/modules/refund/refund.module').then(m => m.RefundModule) },
                     { path: 'report', loadChildren: () => import('./demo/modules/report/report.module').then(m => m.ReportModule) },

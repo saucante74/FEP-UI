@@ -1,0 +1,36 @@
+<div class="card p-fluid">
+    <h2>Créer un remboursement</h2>
+
+    <div class="formgrid grid">
+        <div class="field col-6">
+            <label for="loanId">ID du prêt</label>
+            <input id="loanId" type="number" pInputText [(ngModel)]="refund.loanId" />
+        </div>
+
+        <div class="field col-6">
+            <label for="amount">Montant</label>
+            <input id="amount" type="number" pInputText [(ngModel)]="refund.amount" />
+        </div>
+
+        <div class="field col-6">
+            <label for="refundDate">Date de remboursement</label>
+            <input id="refundDate" type="date" pInputText [(ngModel)]="refund.refundDate" />
+        </div>
+
+        <div class="field col-6">
+            <label for="status">Statut</label>
+            <p-dropdown
+                [options]="statuses"
+                [(ngModel)]="refund.status"
+                optionLabel="name"
+                optionValue="code"
+                placeholder="Sélectionner un statut"
+                inputId="status"
+            ></p-dropdown>
+        </div>
+    </div>
+
+    <div class="mt-3 field col-6 col-offset-3">
+        <button pButton type="button" label="Créer le remboursement" (click)="submitRefund()"></button>
+    </div>
+</div>

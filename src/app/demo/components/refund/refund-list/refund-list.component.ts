@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 export interface RefundResponseDTO {
     id: number;
-    loanId: number;
+    loanReference: string;   // ✅ remplace loanId
     amount: number;
     refundDate: string;
     status: string;
@@ -21,14 +21,15 @@ export class RefundListComponent implements OnInit {
     first: number = 0;
     rows: number = 5;
 
-    loanIdFilter: number | null = null;
+    loanReferenceFilter: string = '';   // ✅ string plutôt que number
     statusFilter: string = '';
 
     statuses = [
         { name: 'TOUS', code: '' },
         { name: 'PENDING', code: 'PENDING' },
         { name: 'APPROVED', code: 'APPROVED' },
-        { name: 'REJECTED', code: 'REJECTED' }
+        { name: 'REJECTED', code: 'REJECTED' },
+        { name: 'LATE', code: 'LATE' }
     ];
 
     constructor(private http: HttpClient) {}
@@ -47,15 +48,17 @@ export class RefundListComponent implements OnInit {
 
     applyFilters() {
         this.filteredRefunds = this.refunds.filter(refund => {
-            const matchesLoanId = this.loanIdFilter === null || refund.loanId === this.loanIdFilter;
-            const matchesStatus = this.statusFilter === '' || refund.status === this.statusFilter;
-            return matchesLoanId && matchesStatus;
+            const matchesReference =
+                this.loanReferenceFilter === '' || refund.loanReference.toLowerCase().includes(this.loanReferenceFilter.toLowerCase());
+            const matchesStatus =
+                this.statusFilter === '' || refund.status === this.statusFilter;
+            return matchesReference && matchesStatus;
         });
         this.reset();
     }
 
     resetFilters() {
-        this.loanIdFilter = null;
+        this.loanReferenceFilter = '';
         this.statusFilter = '';
         this.applyFilters();
     }

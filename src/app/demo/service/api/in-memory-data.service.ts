@@ -15,25 +15,27 @@ export class InMemoryDataService implements InMemoryDbService {
     createDb() {
 
         const users = [
-            { id: 1, firstName: 'Alice', lastName: 'Dupont', email: 'alice@example.com', password: 'secret', role: UserRole.BORROWER, status: UserStatus.VALIDATED },
-            { id: 2, firstName: 'Bob', lastName: 'Martin', email: 'bob@example.com', password: 'secret', role: UserRole.LENDER, status: UserStatus.VALIDATED },
-            { id: 3, firstName: 'Claire', lastName: 'Durand', email: 'claire@example.com', password: 'secret', role: UserRole.ADMIN, status: UserStatus.VALIDATED }
+            { id: 1, firstName: 'Alice', lastName: 'Dupont', email: 'alice@example.com', password: 'secret', role: UserRole.LENDER, status: UserStatus.VALIDATED },
+            { id: 2, firstName: 'Bob', lastName: 'Martin', email: 'bob@example.com', password: 'secret', role: UserRole.BORROWER, status: UserStatus.VALIDATED },
+            { id: 3, firstName: 'Claire', lastName: 'Durand', email: 'claire@example.com', password: 'secret', role: UserRole.BORROWER, status: UserStatus.VALIDATED },
+            { id: 4, firstName: 'David', lastName: 'Moreau', email: 'david@example.com', password: 'secret', role: UserRole.LENDER, status: UserStatus.VALIDATED }
         ];
 
         const loans = [
-            { id: 1, amount: 5000, interestRate: 5, durationInMonths: 12, status: LoanStatusEnum.PENDING, borrowerId: 1 },
-            { id: 2, amount: 10000, interestRate: 4, durationInMonths: 24, status: LoanStatusEnum.IN_PROGRESS, borrowerId: 2 },
-            { id: 3, amount: 12000, interestRate: 4, durationInMonths: 24, status: LoanStatusEnum.IN_PROGRESS, borrowerId: 2 },
-            { id: 4, amount: 14000, interestRate: 4, durationInMonths: 24, status: LoanStatusEnum.IN_PROGRESS, borrowerId: 2 },
-            { id: 5, amount: 1000, interestRate: 4, durationInMonths: 24, status: LoanStatusEnum.IN_PROGRESS, borrowerId: 3 },
-            { id: 6, amount: 17000, interestRate: 4, durationInMonths: 24, status: LoanStatusEnum.IN_PROGRESS, borrowerId: 2 },
-            { id: 7, amount: 10000, interestRate: 4, durationInMonths: 24, status: LoanStatusEnum.IN_PROGRESS, borrowerId: 4 },
+            { id: 1, reference: 'LN-2025-0002', amount: 5000, interestRate: 5, durationInMonths: 12, status: LoanStatusEnum.PENDING, lender: users[0] },
+            { id: 2, reference: 'LN-2025-0002', amount: 10000, interestRate: 4, durationInMonths: 24, status: LoanStatusEnum.PENDING, lender: users[3] },
+
+            { id: 3, reference: 'LN-2025-0003', amount: 7500, interestRate: 6, durationInMonths: 18, status: LoanStatusEnum.IN_PROGRESS, lender: users[0], borrower: users[2] },
+            { id: 4, reference: 'LN-2025-0004', amount: 2000, interestRate: 7, durationInMonths: 6, status: LoanStatusEnum.IN_PROGRESS, lender: users[3], borrower: users[1] }
         ];
 
         const refunds = [
-            { id: 1, loanId: 2, amount: 500, refundDate: '2025-08-01', status: RefundStatus.APPROVED },
-            { id: 2, loanId: 2, amount: 500, refundDate: '2025-09-01', status: RefundStatus.PENDING }
+            { id: 1, loanReference: 'LN-2025-0002', refundDate: '2025-08-01', amount: 500, status: RefundStatus.APPROVED },
+            { id: 2, loanReference: 'LN-2025-0002', refundDate: '2025-09-01', amount: 500, status: RefundStatus.PENDING },
+            { id: 3, loanReference: 'LN-2025-0003', refundDate: '2025-09-10', amount: 800, status: RefundStatus.PENDING },
+            { id: 4, loanReference: 'LN-2025-0004', refundDate: '2025-09-15', amount: 1200, status: RefundStatus.CANCELLED }
         ];
+
 
         const reports = [
             { id: 1, reason: ReportReason.FRAUD, reporterEmail: 'alice@example.com', reportedUserEmail: 'bob@example.com', reportDate: '2025-08-01', status: ReportReason.FRAUD },

@@ -14,16 +14,11 @@ export class AppMenuComponent implements OnInit {
     ngOnInit() {
         this.model = [
             {
-                label: 'Home',
+                label: 'Accueil',
                 items: [
-                    { label: 'Homepage', icon: 'pi pi-fw pi-home', routerLink: ['/homepage'] },
-                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
-                ]
-            },
-            {
-                label: 'TABLEAU DE BORD',
-                items: [
+                    { label: 'Accueil', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
                     { label: 'Tableau de bord', icon: 'pi pi-th-large', routerLink: ['/tdb/view'] },
+
                 ]
             },
             {

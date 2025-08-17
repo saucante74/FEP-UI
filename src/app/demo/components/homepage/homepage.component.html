@@ -1,0 +1,75 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card text-center p-4">
+            <h2 class="text-900 font-bold">Bienvenue sur votre espace financier</h2>
+            <p class="text-600">Un aperçu rapide de vos activités et indicateurs clés</p>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6 xl:col-3" *ngIf="stats">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-2">
+                <span class="block text-500 font-medium">Total financé</span>
+                <i class="pi pi-briefcase text-green-500 text-xl"></i>
+            </div>
+            <div class="text-900 font-bold text-2xl">{{ stats.global.totalFinanced | currency:'USD' }}</div>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6 xl:col-3" *ngIf="stats">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-2">
+                <span class="block text-500 font-medium">Revenus</span>
+                <i class="pi pi-dollar text-green-500 text-xl"></i>
+            </div>
+            <div class="text-900 font-bold text-2xl">{{ stats.global.totalRevenue | currency:'USD' }}</div>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6 xl:col-3" *ngIf="stats">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-2">
+                <span class="block text-500 font-medium">Prêts</span>
+                <i class="pi pi-wallet text-green-500 text-xl"></i>
+            </div>
+            <div class="text-900 font-bold text-2xl">
+                {{ stats.global.loansInProgress }} en cours
+                <small class="text-500 text-sm">  {{ stats.global.loansRepaid }} déjà remboursés</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6 xl:col-3" *ngIf="stats">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-2">
+                <span class="block text-500 font-medium">Alertes</span>
+                <i class="pi pi-exclamation-triangle text-red-500 text-xl"></i>
+            </div>
+            <div class="text-900 font-bold text-2xl text-red-500">{{ stats.system.alertsCount }}</div>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6" *ngIf="stats">
+        <div class="card">
+            <h5>Remboursements à venir</h5>
+            <ul class="list-none m-0 p-0">
+                <li *ngFor="let r of stats.refunds.upcomingRefunds" class="flex justify-content-between py-2 border-bottom-1 surface-border">
+                    <span>{{ r.borrower }}</span>
+                    <span>{{ r.amount | currency:'USD' }} - {{ r.dueDate | date:'shortDate' }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6" *ngIf="stats">
+        <div class="card">
+            <h5>Derniers impayés</h5>
+            <ul class="list-none m-0 p-0">
+                <li *ngFor="let r of stats.refunds.lateRefunds" class="flex justify-content-between py-2 border-bottom-1 surface-border">
+                    <span>{{ r.borrower }}</span>
+                    <span class="text-red-500">{{ r.amount | currency:'USD' }} ({{ r.daysLate }} j de retard)</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

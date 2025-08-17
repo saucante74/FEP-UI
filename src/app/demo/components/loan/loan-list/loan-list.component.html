@@ -1,1 +1,70 @@
-<p>loan-list works!</p>
+<div class="card p-fluid mb-4">
+    <h2>Filtrer les prêts</h2>
+    <div class="formgrid grid">
+        <div class="field col-4">
+            <label for="interestRateFilter">Taux d'intérêt</label>
+            <input id="interestRateFilter" type="number" pInputText [(ngModel)]="interestRateFilter" />
+        </div>
+
+        <div class="field col-4">
+            <label for="durationFilter">Durée (mois)</label>
+            <input id="durationFilter" type="number" pInputText [(ngModel)]="durationFilter" />
+        </div>
+
+        <div class="field col-4">
+            <label for="statusFilter">Statut</label>
+            <p-dropdown
+                [options]="statuses"
+                [(ngModel)]="statusFilter"
+                optionLabel="name"
+                optionValue="code"
+                placeholder="Sélectionner un statut"
+                inputId="statusFilter"
+            ></p-dropdown>
+        </div>
+    </div>
+
+    <div class="flex gap-2 mt-2 col-8 col-offset-2">
+        <button pButton type="button" label="Appliquer les filtres" icon="pi pi-filter" (click)="applyFilters()"></button>
+        <button pButton type="button" label="Réinitialiser" icon="pi pi-refresh" severity="secondary" (click)="resetFilters()"></button>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Liste des prêts</h2>
+    <p-table
+        [value]="filteredLoans"
+        [paginator]="true"
+        [rows]="rows"
+        [first]="first"
+        [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} prêts"
+        (onPage)="pageChange($event)"
+        [rowsPerPageOptions]="[5, 10, 25, 50]"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Montant</th>
+                <th>Taux d'intérêt</th>
+                <th>Durée (mois)</th>
+                <th>Statut</th>
+                <th>ID Emprunteur</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-loan>
+            <tr>
+                <td>{{ loan.amount | currency:'EUR' }}</td>
+                <td>{{ loan.interestRate }} %</td>
+                <td>{{ loan.durationInMonths }}</td>
+                <td>{{ loan.status }}</td>
+                <td>{{ loan.borrowerId }}</td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="paginatorleft">
+            <p-button type="button" icon="pi pi-plus" text></p-button>
+        </ng-template>
+    </p-table>
+</div>

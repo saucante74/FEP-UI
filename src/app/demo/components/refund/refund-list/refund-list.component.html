@@ -1,1 +1,66 @@
-<p>refund-list works!</p>
+<div class="card p-fluid mb-4">
+    <h2>Filtrer les remboursements</h2>
+    <div class="formgrid grid">
+        <div class="field col-4">
+            <label for="loanIdFilter">ID du prêt</label>
+            <input id="loanIdFilter" type="number" pInputText [(ngModel)]="loanIdFilter" />
+        </div>
+
+        <div class="field col-4">
+            <label for="statusFilter">Statut</label>
+            <p-dropdown
+                [options]="statuses"
+                [(ngModel)]="statusFilter"
+                optionLabel="name"
+                optionValue="code"
+                placeholder="Sélectionner un statut"
+                inputId="statusFilter"
+            ></p-dropdown>
+        </div>
+
+        <div class="mt-4 pt-1 col-3 col-offset-1">
+            <button pButton type="button" label="Appliquer les filtres" icon="pi pi-filter" (click)="applyFilters()"></button>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="card">
+    <h2>Liste des remboursements</h2>
+    <p-table
+        [value]="filteredRefunds"
+        [paginator]="true"
+        [rows]="rows"
+        [first]="first"
+        [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} remboursements"
+        (onPage)="pageChange($event)"
+        [rowsPerPageOptions]="[5, 10, 25, 50]"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>ID Prêt</th>
+                <th>Montant</th>
+                <th>Date de remboursement</th>
+                <th>Statut</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-refund>
+            <tr>
+                <td>{{ refund.id }}</td>
+                <td>{{ refund.loanId }}</td>
+                <td>{{ refund.amount | currency:'EUR' }}</td>
+                <td>{{ refund.refundDate | date:'dd/MM/yyyy' }}</td>
+                <td>{{ refund.status }}</td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="paginatorleft">
+            <p-button type="button" icon="pi pi-plus" text></p-button>
+        </ng-template>
+    </p-table>
+</div>

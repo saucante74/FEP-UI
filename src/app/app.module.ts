@@ -12,6 +12,8 @@ import { PhotoService } from './demo/service/photo.service';
 import { FormsModule } from "@angular/forms";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { AuthInterceptor } from "./demo/service/api/auth.interceptor";
+import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
+import { InMemoryDataService } from "./demo/service/api/in-memory-data.service";
 
 @NgModule({
     declarations: [
@@ -22,7 +24,8 @@ import { AuthInterceptor } from "./demo/service/api/auth.interceptor";
         AppRoutingModule,
         AppLayoutModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 100 }),
     ],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },

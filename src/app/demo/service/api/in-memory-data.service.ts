@@ -77,7 +77,7 @@ export class InMemoryDataService implements InMemoryDbService {
                     { dueDate: '2025-09-20', amount: 800, borrower: 'Marie Curie' }
                 ],
                 lateRefunds: [
-                    { refundId: 101, daysLate: 5, amount: 600, borrower: 'Ali Karim' }
+                    { refundId: 101, daysLate: 5, amount: 600, borrower: 'Jacques Durand' }
                 ]
             },
             system: {

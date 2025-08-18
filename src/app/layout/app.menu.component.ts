@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
+import { AuthenticationService } from "../demo/service/api/authentication.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-menu',
@@ -9,7 +11,11 @@ export class AppMenuComponent implements OnInit {
 
     model: any[] = [];
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(
+        public layoutService: LayoutService,
+        public authenticationService: AuthenticationService,
+        public router: Router
+    ) { }
 
     ngOnInit() {
         this.model = [
@@ -52,7 +58,16 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Déconnexion',
                 items: [
-                    { label: 'Déconnexion', icon: 'pi pi-fw pi-home', routerLink: ['/logout'] },
+                    {
+                        label: 'Déconnexion',
+                        icon: 'pi pi-sign-out',
+                        command: () => {
+                            this.authenticationService.logout();
+                            this.router.navigate(['/auth/login']);
+                        }
+                        ,
+                        routerLink: ['/logout'],
+                    },
                 ]
             },
             // {

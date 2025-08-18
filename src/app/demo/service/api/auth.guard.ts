@@ -9,7 +9,7 @@ export const authGuard = () => {
     if (authService.isLoggedIn()) {
         return true;
     } else {
-        router.navigate(['/login']);
+        router.navigate(['/auth/login']);
         return false;
     }
 };

@@ -25,7 +25,7 @@ import { InMemoryDataService } from "./demo/service/api/in-memory-data.service";
         AppLayoutModule,
         FormsModule,
         HttpClientModule,
-        HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 100 }),
+        HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 100, passThruUnknownUrl: true }),
     ],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },

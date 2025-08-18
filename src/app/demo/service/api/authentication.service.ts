@@ -17,17 +17,28 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthenticationService {
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient) {}
 
     login(payload: LoginRequest) {
         return this.httpClient.post<LoginResponse>(
-            `${environment.apiBaseUrl}auth/login`,
+            `${environment.apiBaseUrl}auth/authenticate`,
             payload
         ).pipe(
             tap((response) => {
-                localStorage.setItem('access_token', response.token)
+                localStorage.setItem('access_token', response.token);
             })
         );
+    }
 
+    logout() {
+        localStorage.removeItem('access_token');
+    }
+
+    getToken(): string | null {
+        return localStorage.getItem('access_token');
+    }
+
+    isLoggedIn(): boolean {
+        return !!localStorage.getItem('access_token');
     }
 }

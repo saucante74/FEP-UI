@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from "../../../../../environments/environment";
 
 export interface RefundRequestDTO {
     loanId: number;
@@ -30,7 +31,7 @@ export class RefundFormComponent {
     constructor(private http: HttpClient) {}
 
     submitRefund() {
-        this.http.post('/api/refunds', this.refund).subscribe({
+        this.http.post(`${environment.apiBaseUrl}/refunds`, this.refund).subscribe({
             next: (response) => {
                 console.log('Remboursement créé avec succès :', response);
             },

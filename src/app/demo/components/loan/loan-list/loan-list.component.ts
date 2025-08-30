@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from "../../../../../environments/environment";
 
 export interface LoanResponseDTO {
     amount: number;
@@ -35,8 +36,9 @@ export class LoanListComponent implements OnInit {
     constructor(private http: HttpClient) {}
 
     ngOnInit() {
-        this.http.get<LoanResponseDTO[]>('/api/loans').subscribe({
+        this.http.get<LoanResponseDTO[]>(`${environment.apiBaseUrl}/loans`).subscribe({
             next: (data) => {
+                console.log(data)
                 this.loans = data;
                 this.filteredLoans = data;
             },

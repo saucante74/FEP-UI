@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from "../../../../../environments/environment";
 
 export interface LoanRequestDTO {
     amount: number;
@@ -32,7 +33,7 @@ export class LoanRequestComponent {
     constructor(private http: HttpClient) {}
 
     submitLoan() {
-        this.http.post('/api/loans', this.loan).subscribe({
+        this.http.post(`${environment.apiBaseUrl}/loans`, this.loan).subscribe({
             next: (response) => {
                 console.log('Prêt créé avec succès :', response);
             },

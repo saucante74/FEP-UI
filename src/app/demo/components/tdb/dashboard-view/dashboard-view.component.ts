@@ -3,6 +3,7 @@ import { DashboardStatsDTO } from "../../../dtos/dashboard/dashboard-stats.dto";
 import { HttpClient } from "@angular/common/http";
 import { LayoutService } from "../../../../layout/service/app.layout.service";
 import { debounceTime, Subscription } from "rxjs";
+import { environment } from "../../../../../environments/environment";
 
 @Component({
     selector: 'app-dashboard',
@@ -24,7 +25,7 @@ export class DashboardViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.http.get<DashboardStatsDTO>('/api/dashboardStats').subscribe(data => {
+        this.http.get<DashboardStatsDTO>(`${environment.apiBaseUrl}/dashboard`).subscribe(data => {
             this.stats = data;
 
             this.totalUnpaidAmount = this.stats.refunds.monthlyRefunds

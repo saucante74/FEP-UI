@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoanResponseDTO } from '../../../dtos/loan/loan-response.dto';
+import { environment } from "../../../../../environments/environment";
 
 @Component({
     selector: 'app-loan-marketplace',
@@ -12,7 +13,7 @@ export class LoanMarketplaceComponent implements OnInit {
     constructor(private http: HttpClient) {}
 
     ngOnInit() {
-        this.http.get<LoanResponseDTO[]>('/api/loans').subscribe(data => {
+        this.http.get<LoanResponseDTO[]>(`${environment.apiBaseUrl}/loans`).subscribe(data => {
             this.loans = data.filter(l => l.status === 'PENDING');
         });
     }

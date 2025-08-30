@@ -21,7 +21,7 @@ export class AuthenticationService {
 
     login(payload: LoginRequest) {
         return this.httpClient.post<LoginResponse>(
-            `${environment.apiBaseUrl}auth/authenticate`,
+            `${environment.apiBaseUrl}/auth/authenticate`,
             payload
         ).pipe(
             tap((response) => {

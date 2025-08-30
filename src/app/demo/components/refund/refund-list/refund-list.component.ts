@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from "../../../../../environments/environment";
 
 export interface RefundResponseDTO {
     id: number;
@@ -35,7 +36,7 @@ export class RefundListComponent implements OnInit {
     constructor(private http: HttpClient) {}
 
     ngOnInit() {
-        this.http.get<RefundResponseDTO[]>('/api/refunds').subscribe({
+        this.http.get<RefundResponseDTO[]>(`${environment.apiBaseUrl}/refunds`).subscribe({
             next: (data) => {
                 this.refunds = data;
                 this.filteredRefunds = data;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ReportResponseDTO } from '../../../dtos/report/report.response.dto';
+import { environment } from "../../../../../environments/environment";
 
 @Component({
     selector: 'app-report-list',
@@ -36,7 +37,7 @@ export class ReportListComponent implements OnInit {
     constructor(private http: HttpClient) {}
 
     ngOnInit() {
-        this.http.get<ReportResponseDTO[]>('/api/reports').subscribe({
+        this.http.get<ReportResponseDTO[]>(`${environment.apiBaseUrl}/reports`).subscribe({
             next: (data) => {
                 this.reports = data;
                 this.filteredReports = data;

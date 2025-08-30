@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DashboardStatsDTO } from "../../dtos/dashboard/dashboard-stats.dto";
+import { environment } from "../../../../environments/environment";
 
 @Component({
     selector: 'app-homepage',
@@ -12,7 +13,7 @@ export class HomepageComponent implements OnInit {
     constructor(private http: HttpClient) {}
 
     ngOnInit() {
-        this.http.get<DashboardStatsDTO>('/api/dashboardStats').subscribe(data => {
+        this.http.get<DashboardStatsDTO>(`${environment.apiBaseUrl}/dashboard`).subscribe(data => {
             this.stats = data;
         });
     }

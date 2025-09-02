@@ -41,4 +41,13 @@ export class AuthenticationService {
     isLoggedIn(): boolean {
         return !!localStorage.getItem('access_token');
     }
+
+    requestPasswordReset(email: string) {
+        return this.httpClient.post(`${environment.apiBaseUrl}/auth/reset-password-request`, null, {
+            params: { email }
+        });
+    }
+    updatePassword(payload: { token: string; newPassword: string }) {
+        return this.httpClient.post(`${environment.apiBaseUrl}/auth/reset-password`, payload);
+    }
 }

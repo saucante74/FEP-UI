@@ -7,9 +7,9 @@ import { environment } from "../../../../../environments/environment";
 
 @Component({
     selector: 'app-dashboard',
-    templateUrl: './dashboard-view.component.html',
+    templateUrl: './admin-dashboard-view.component.html',
 })
-export class DashboardViewComponent implements OnInit {
+export class AdminDashboardViewComponent implements OnInit {
     chartData: any;
     chartOptions: any;
     stats!: DashboardStatsDTO;
@@ -25,7 +25,7 @@ export class DashboardViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.http.get<DashboardStatsDTO>(`${environment.apiBaseUrl}/dashboard`).subscribe(data => {
+        this.http.get<DashboardStatsDTO>(`${environment.apiBaseUrl}/admin/dashboard`).subscribe(data => {
             this.stats = data;
 
             this.totalUnpaidAmount = this.stats.refunds.monthlyRefunds

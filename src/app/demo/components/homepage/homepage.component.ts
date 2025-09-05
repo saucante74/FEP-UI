@@ -13,7 +13,7 @@ export class HomepageComponent implements OnInit {
     constructor(private http: HttpClient) {}
 
     ngOnInit() {
-        this.http.get<DashboardStatsDTO>(`${environment.apiBaseUrl}/dashboard`).subscribe(data => {
+        this.http.get<DashboardStatsDTO>(`${environment.apiBaseUrl}/admin/dashboard`).subscribe(data => {
             this.stats = data;
         });
     }

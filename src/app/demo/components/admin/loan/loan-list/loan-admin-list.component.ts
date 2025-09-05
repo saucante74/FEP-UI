@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from "../../../../../environments/environment";
+import { environment } from "../../../../../../environments/environment";
 
 export interface LoanResponseDTO {
     amount: number;
@@ -11,11 +11,10 @@ export interface LoanResponseDTO {
 }
 
 @Component({
-    selector: 'app-loan-list',
-    templateUrl: './loan-list.component.html',
-    styleUrls: ['./loan-list.component.scss']
+    selector: 'app-admin-loan-list',
+    templateUrl: './loan-admin-list.component.html',
 })
-export class LoanListComponent implements OnInit {
+export class LoanAdminListComponent implements OnInit {
     loans: LoanResponseDTO[] = [];
     filteredLoans: LoanResponseDTO[] = [];
 

@@ -1,6 +1,6 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Injectable } from '@angular/core';
-import { DashboardStatsDTO } from "../../dtos/dashboard/dashboard-stats.dto";
+import { AdminDashboardStatsDto } from "../../dtos/dashboard/admin-dashboard-stats.dto";
 import { ReportReason } from "../../dtos/report/report-reason.enum";
 import { RefundStatus } from "../../dtos/refund/refund-status.enum";
 import { LoanStatusEnum } from "../../dtos/loan/loan-status.enum";
@@ -42,7 +42,7 @@ export class InMemoryDataService implements InMemoryDbService {
             { id: 2, reason: ReportReason.SPAM, reporterEmail: 'claire@example.com', reportedUserEmail: 'alice@example.com', reportDate: '2025-08-05', status: ReportReason.SPAM }
         ];
 
-        const dashboardStats: DashboardStatsDTO = {
+        const dashboardStats: AdminDashboardStatsDto = {
             global: {
                 totalFinanced: 1250000,
                 totalRevenue: 21000,

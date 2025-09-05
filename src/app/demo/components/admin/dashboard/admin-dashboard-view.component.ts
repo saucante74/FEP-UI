@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardStatsDTO } from "../../../dtos/dashboard/dashboard-stats.dto";
+import { AdminDashboardStatsDto } from "../../../dtos/dashboard/admin-dashboard-stats.dto";
 import { HttpClient } from "@angular/common/http";
 import { LayoutService } from "../../../../layout/service/app.layout.service";
 import { debounceTime, Subscription } from "rxjs";
@@ -12,7 +12,7 @@ import { environment } from "../../../../../environments/environment";
 export class AdminDashboardViewComponent implements OnInit {
     chartData: any;
     chartOptions: any;
-    stats!: DashboardStatsDTO;
+    stats!: AdminDashboardStatsDto;
     subscription!: Subscription;
 
     totalUnpaidAmount: number = 0;
@@ -25,7 +25,7 @@ export class AdminDashboardViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.http.get<DashboardStatsDTO>(`${environment.apiBaseUrl}/admin/dashboard`).subscribe(data => {
+        this.http.get<AdminDashboardStatsDto>(`${environment.apiBaseUrl}/admin/dashboard`).subscribe(data => {
             this.stats = data;
 
             this.totalUnpaidAmount = this.stats.refunds.monthlyRefunds

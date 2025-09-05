@@ -50,4 +50,12 @@ export class AuthenticationService {
     updatePassword(payload: { token: string; newPassword: string }) {
         return this.httpClient.post(`${environment.apiBaseUrl}/auth/reset-password`, payload);
     }
+
+    getUserRole(): string {
+        const token = localStorage.getItem('access_token');
+        if (!token) return '';
+
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        return payload.role || '';
+    }
 }

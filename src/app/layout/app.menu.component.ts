@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
 import { AuthenticationService } from "../demo/service/api/authentication.service";
 import { Router } from "@angular/router";
+import { UserRole } from "../demo/dtos/user/user-role.enum";
 
 @Component({
     selector: 'app-menu',
@@ -29,7 +30,7 @@ export class AppMenuComponent implements OnInit {
             },
         ];
 
-        if (role === 'ADMIN') {
+        if (UserRole.ADMIN === role) {
             this.model.push({
                 label: 'Administration',
                 items: [
@@ -39,7 +40,7 @@ export class AppMenuComponent implements OnInit {
             });
         }
 
-        if (role === 'LENDER' || role === 'BORROWER') {
+        if (UserRole.LENDER === role || UserRole.BORROWER === role) {
             this.model.push({
                 label: 'Pilotage',
                 items: [

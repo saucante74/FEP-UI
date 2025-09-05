@@ -24,7 +24,7 @@ import { ButtonModule } from "primeng/button";
         HomepageRoutingModule,
     ],
     declarations: [
-        HomepageComponent
+        HomepageComponent,
     ]
 })
 export class HomepageModule { }

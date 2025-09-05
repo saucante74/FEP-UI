@@ -1,20 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DashboardStatsDTO } from "../../dtos/dashboard/dashboard-stats.dto";
+import { AdminDashboardStatsDto } from "../../dtos/dashboard/admin-dashboard-stats.dto";
 import { environment } from "../../../../environments/environment";
+import { UserDashboardStatsDTO } from "../../dtos/dashboard/user-dashboard-stats.dto";
+import { AuthenticationService } from "../../service/api/authentication.service";
+import { UserRole } from "../../dtos/user/user-role.enum";
 
 @Component({
     selector: 'app-homepage',
     templateUrl: './homepage.component.html'
 })
 export class HomepageComponent implements OnInit {
-    stats!: DashboardStatsDTO;
+    stats!: AdminDashboardStatsDto|UserDashboardStatsDTO;
+    role: string;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private authService: AuthenticationService) {}
 
     ngOnInit() {
-        this.http.get<DashboardStatsDTO>(`${environment.apiBaseUrl}/admin/dashboard`).subscribe(data => {
-            this.stats = data;
-        });
+        this.role = this.authService.getUserRole();
+
+        if (UserRole.ADMIN === this.role) {
+            this.http.get<AdminDashboardStatsDto>(`${environment.apiBaseUrl}/admin/dashboard`)
+                .subscribe(data => this.stats = data);
+        } else {
+            this.http.get<UserDashboardStatsDTO>(`${environment.apiBaseUrl}/user/dashboard`)
+                .subscribe(data => this.stats = data);
+        }
     }
+
 }

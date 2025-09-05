@@ -1,24 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoanRoutingModule } from './loan-routing.module';
+
+import { AdminRoutingModule } from './admin-routing.module';
+import { AdminDashboardViewComponent } from "../../components/admin/dashboard/admin-dashboard-view.component";
+import { ChartModule } from "primeng/chart";
+import { LoanAdminListComponent } from "../../components/admin/loan/loan-list/loan-admin-list.component";
 import { TableModule } from "primeng/table";
 import { ButtonModule } from "primeng/button";
-import { LoanRequestComponent } from "../../components/loan/loan-request/loan-request.component";
 import { DropdownModule } from "primeng/dropdown";
 import { FormsModule } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
-import { LoanMarketplaceComponent } from "../../components/loan/loan-marketplace/loan-marketplace.component";
-import { LoanAdminListComponent } from "../../components/admin/loan/loan-list/loan-admin-list.component";
 
 
 @NgModule({
   declarations: [
-      LoanRequestComponent,
-      LoanMarketplaceComponent,
+      AdminDashboardViewComponent,
+      LoanAdminListComponent
   ],
     imports: [
         CommonModule,
-        LoanRoutingModule,
+        AdminRoutingModule,
+        ChartModule,
         TableModule,
         ButtonModule,
         DropdownModule,
@@ -26,4 +28,4 @@ import { LoanAdminListComponent } from "../../components/admin/loan/loan-list/lo
         InputTextModule
     ]
 })
-export class LoanModule { }
+export class AdminModule { }

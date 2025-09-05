@@ -27,6 +27,13 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
+                label: 'Admin',
+                items: [
+                    { label: 'Tableau de bord', icon: 'pi pi-th-large', routerLink: ['/admin/dashboard'] },
+
+                ]
+            },
+            {
                 label: 'Pilotage',
                 items: [
                     { label: 'Tableau de bord', icon: 'pi pi-th-large', routerLink: ['/dashboard'] },

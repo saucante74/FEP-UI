@@ -46,8 +46,8 @@ export class AppMenuComponent implements OnInit {
                 label: 'Pilotage',
                 items: [
                     { label: 'Tableau de bord', icon: 'pi pi-th-large', routerLink: ['/dashboard'] },
+                    { label: 'Liste des prêts', icon: 'pi pi-bars', routerLink: ['/loan/list'] },
                     { label: 'Liste des remboursements', icon: 'pi pi-refresh', routerLink: ['/refund/list'] },
-
                 ]
             });
 

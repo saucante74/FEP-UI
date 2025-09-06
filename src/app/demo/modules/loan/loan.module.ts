@@ -9,12 +9,14 @@ import { FormsModule } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
 import { LoanMarketplaceComponent } from "../../components/loan/loan-marketplace/loan-marketplace.component";
 import { LoanAdminListComponent } from "../../components/admin/loan/loan-list/loan-admin-list.component";
+import { LoanListComponent } from "../../components/loan/loan-list/loan-list.component";
 
 
 @NgModule({
   declarations: [
       LoanRequestComponent,
       LoanMarketplaceComponent,
+      LoanListComponent
   ],
     imports: [
         CommonModule,

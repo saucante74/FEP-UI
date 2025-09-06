@@ -4,6 +4,7 @@ import { LoanAdminListComponent } from '../../components/admin/loan/loan-list/lo
 import { LoanRequestComponent } from '../../components/loan/loan-request/loan-request.component';
 import { LoanMarketplaceComponent } from "../../components/loan/loan-marketplace/loan-marketplace.component";
 import { authGuard } from "../../service/api/auth.guard";
+import { LoanListComponent } from "../../components/loan/loan-list/loan-list.component";
 
 
 const routes: Routes = [
@@ -16,7 +17,11 @@ const routes: Routes = [
   {
       path: 'marketplace',
       component: LoanMarketplaceComponent
-  }
+  },
+    {
+        path: 'list',
+        component: LoanListComponent
+    }
 ];
 
 

@@ -36,6 +36,7 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     { label: 'Tableau de bord', icon: 'pi pi-th-large', routerLink: ['/admin/dashboard'] },
                     { label: 'Liste des prêts', icon: 'pi pi-bars', routerLink: ['/admin/loan/list'] },
+                    { label: 'Liste des remboursements', icon: 'pi pi-refresh', routerLink: ['/admin/refund/list'] },
                 ]
             });
         }
@@ -46,6 +47,7 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     { label: 'Tableau de bord', icon: 'pi pi-th-large', routerLink: ['/dashboard'] },
                     { label: 'Liste des remboursements', icon: 'pi pi-refresh', routerLink: ['/refund/list'] },
+
                 ]
             });
 

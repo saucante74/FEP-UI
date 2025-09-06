@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from "../../../../../environments/environment";
+import { environment } from "../../../../../../environments/environment";
 
 export interface RefundResponseDTO {
     id: number;
@@ -12,9 +12,10 @@ export interface RefundResponseDTO {
 
 @Component({
     selector: 'app-refund-list',
-    templateUrl: './refund-list.component.html',
+    templateUrl: './refund-admin-list.component.html',
+    styleUrls: ['./refund-admin-list.component.scss']
 })
-export class RefundListComponent implements OnInit {
+export class RefundAdminListComponent implements OnInit {
     refunds: RefundResponseDTO[] = [];
     filteredRefunds: RefundResponseDTO[] = [];
 
@@ -35,13 +36,13 @@ export class RefundListComponent implements OnInit {
     constructor(private http: HttpClient) {}
 
     ngOnInit() {
-        this.http.get<RefundResponseDTO[]>(`${environment.apiBaseUrl}/refunds/user`).subscribe({
+        this.http.get<RefundResponseDTO[]>(`${environment.apiBaseUrl}/refunds`).subscribe({
             next: (data) => {
                 this.refunds = data;
                 this.filteredRefunds = data;
             },
             error: (err) => {
-                console.error('Erreur lors du fetch /refunds/user', err);
+                console.error('Erreur lors du fetch /api/refunds', err);
             }
         });
     }

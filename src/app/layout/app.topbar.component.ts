@@ -10,6 +10,12 @@ import {
     VELA_GREEN_THEME
 } from "./config/config.constants";
 
+interface UserInfo {
+    firstName: string,
+    lastName: string,
+    role: string,
+}
+
 @Component({
     selector: 'app-topbar',
     templateUrl: './app.topbar.component.html'
@@ -17,6 +23,8 @@ import {
 export class AppTopBarComponent {
 
     items!: MenuItem[];
+
+    userInfo: UserInfo;
 
     isDarkMode: boolean = false;
 
@@ -27,6 +35,11 @@ export class AppTopBarComponent {
     @ViewChild('topbarmenu') menu!: ElementRef;
 
     constructor(public layoutService: LayoutService) { }
+
+    ngOnInit() {
+        this.userInfo = this.layoutService.getUserInfo();
+        console.log(this.userInfo)
+    }
 
     toggleDarkMode() {
         this.isDarkMode = !this.isDarkMode;

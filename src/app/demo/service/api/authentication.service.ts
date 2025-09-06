@@ -10,7 +10,10 @@ export interface LoginRequest {
 
 export interface LoginResponse {
     token: string,
-    expiresIn: number
+    expiresIn: number,
+    firstName: string,
+    lastName: string,
+    role: string,
 }
 
 @Injectable({
@@ -24,8 +27,13 @@ export class AuthenticationService {
             `${environment.apiBaseUrl}/auth/authenticate`,
             payload
         ).pipe(
-            tap((response) => {
+            tap((response: LoginResponse) => {
                 localStorage.setItem('access_token', response.token);
+                localStorage.setItem('user', JSON.stringify({
+                    firstName: response.firstName,
+                    lastName: response.lastName,
+                    role: response.role,
+                }));
             })
         );
     }

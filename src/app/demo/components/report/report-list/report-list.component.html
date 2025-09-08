@@ -1,19 +1,12 @@
 <div class="card p-fluid mb-4">
-    <h2>Filtrer les signalements</h2>
+    <h2>Mes signalements</h2>
     <div class="formgrid grid">
-        <div class="field col-3">
+        <div class="field col-6">
             <label for="reasonFilter">Motif</label>
-            <p-dropdown
-                [options]="reasons"
-                [(ngModel)]="reasonFilter"
-                optionLabel="name"
-                optionValue="code"
-                placeholder="Sélectionner un motif"
-                inputId="reasonFilter"
-            ></p-dropdown>
+            <input id="reasonFilter" type="text" pInputText [(ngModel)]="reasonFilter" />
         </div>
 
-        <div class="field col-3">
+        <div class="field col-6">
             <label for="statusFilter">Statut</label>
             <p-dropdown
                 [options]="statuses"
@@ -21,48 +14,39 @@
                 optionLabel="name"
                 optionValue="code"
                 placeholder="Sélectionner un statut"
-                inputId="statusFilter"
-            ></p-dropdown>
+                inputId="statusFilter">
+            </p-dropdown>
         </div>
 
-        <div class="field col-3">
-            <label for="startDateFilter">Date début</label>
-            <input id="startDateFilter" type="date" pInputText [(ngModel)]="startDateFilter" />
+        <div class="mt-4 pt-1 col-3 col-offset-6">
+            <button pButton type="button" label="Appliquer les filtres" icon="pi pi-filter" (click)="applyFilters()"></button>
         </div>
-
-        <div class="field col-3">
-            <label for="endDateFilter">Date fin</label>
-            <input id="endDateFilter" type="date" pInputText [(ngModel)]="endDateFilter" />
+        <div class="mt-4 pt-1 col-3">
+            <button pButton type="button" label="Réinitialiser" icon="pi pi-refresh" class="p-button-secondary ml-2" (click)="resetFilters()"></button>
         </div>
-    </div>
-
-    <div class="flex gap-2 mt-2 col-8 col-offset-2">
-        <button pButton type="button" label="Appliquer les filtres" icon="pi pi-filter" (click)="applyFilters()"></button>
-        <button pButton type="button" label="Réinitialiser" icon="pi pi-refresh" severity="secondary" (click)="resetFilters()"></button>
     </div>
 </div>
 
 <div class="card">
-    <h2>Liste des signalements</h2>
+    <h2>Liste de mes signalements</h2>
     <p-table
         [value]="filteredReports"
         [paginator]="true"
         [rows]="rows"
         [first]="first"
         [showCurrentPageReport]="true"
-        [tableStyle]="{ 'min-width': '60rem' }"
-        currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} rapports"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} signalements"
         (onPage)="pageChange($event)"
-        [rowsPerPageOptions]="[5, 10, 25, 50]"
-    >
+        [rowsPerPageOptions]="[5, 10, 25, 50]">
+
         <ng-template pTemplate="header">
             <tr>
                 <th>ID</th>
                 <th>Motif</th>
-                <th>Expéditeur</th>
-                <th>Utilisateur signalé</th>
                 <th>Date</th>
                 <th>Statut</th>
+                <th>Utilisateur signalé</th>
             </tr>
         </ng-template>
 
@@ -70,15 +54,12 @@
             <tr>
                 <td>{{ report.id }}</td>
                 <td>{{ report.reason }}</td>
-                <td>{{ report.reporterEmail }}</td>
-                <td>{{ report.reportedUserEmail }}</td>
                 <td>{{ report.reportDate | date:'dd/MM/yyyy' }}</td>
-                <td>{{ report.status }}</td>
+                <td>
+                    <p-tag [severity]="report.open ? 'success' : 'danger'" [value]="report.open ? 'Ouvert' : 'Fermé'"></p-tag>
+                </td>
+                <td>{{ report.reportedUserEmail }}</td>
             </tr>
-        </ng-template>
-
-        <ng-template pTemplate="paginatorleft">
-            <p-button type="button" icon="pi pi-plus" text></p-button>
         </ng-template>
     </p-table>
 </div>

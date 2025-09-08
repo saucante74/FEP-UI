@@ -4,6 +4,7 @@ import { AdminDashboardViewComponent } from '../../components/admin/dashboard/ad
 import { authGuard } from "../../service/api/auth.guard";
 import { LoanAdminListComponent } from "../../components/admin/loan/loan-list/loan-admin-list.component";
 import { RefundAdminListComponent } from "../../components/admin/refund/refund-list/refund-admin-list.component";
+import { ReportAdminListComponent } from "../../components/admin/report/report-list/report-admin-list.component";
 
 const routes: Routes = [
     {
@@ -24,6 +25,12 @@ const routes: Routes = [
         canActivate: [authGuard],
         data: { roles: ['ADMIN'] }
     },
+    {
+        path: 'report/list',
+        component: ReportAdminListComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ADMIN'] }
+    }
 ];
 
 @NgModule({

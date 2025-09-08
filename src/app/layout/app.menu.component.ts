@@ -37,6 +37,7 @@ export class AppMenuComponent implements OnInit {
                     { label: 'Tableau de bord', icon: 'pi pi-th-large', routerLink: ['/admin/dashboard'] },
                     { label: 'Liste des prêts', icon: 'pi pi-bars', routerLink: ['/admin/loan/list'] },
                     { label: 'Liste des remboursements', icon: 'pi pi-refresh', routerLink: ['/admin/refund/list'] },
+                    { label: 'Liste des signalements', icon: 'pi pi-bars', routerLink: ['/admin/report/list'] },
                 ]
             });
         }
@@ -46,8 +47,8 @@ export class AppMenuComponent implements OnInit {
                 label: 'Pilotage',
                 items: [
                     { label: 'Tableau de bord', icon: 'pi pi-th-large', routerLink: ['/dashboard'] },
-                    { label: 'Liste des prêts', icon: 'pi pi-bars', routerLink: ['/loan/list'] },
-                    { label: 'Liste des remboursements', icon: 'pi pi-refresh', routerLink: ['/refund/list'] },
+                    { label: 'Mes prêts', icon: 'pi pi-bars', routerLink: ['/loan/list'] },
+                    { label: 'Mes remboursements', icon: 'pi pi-refresh', routerLink: ['/refund/list'] },
                 ]
             });
 
@@ -56,6 +57,13 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     { label: 'Trouver un prêt', icon: 'pi pi-desktop', routerLink: ['/loan/marketplace'] },
                     { label: 'Proposer un prêt', icon: 'pi pi-plus', routerLink: ['/loan/request'] },
+                ]
+            });
+
+            this.model.push({
+                label: 'Signalements',
+                items: [
+                    { label: 'Mes signalements', icon: 'pi pi-bars', routerLink: ['/report/list'] },
                 ]
             });
         }

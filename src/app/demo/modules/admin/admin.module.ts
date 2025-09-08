@@ -10,12 +10,16 @@ import { ButtonModule } from "primeng/button";
 import { DropdownModule } from "primeng/dropdown";
 import { FormsModule } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
+import { RefundAdminListComponent } from "../../components/admin/refund/refund-list/refund-admin-list.component";
+import { ReportAdminListComponent } from "../../components/admin/report/report-list/report-admin-list.component";
 
 
 @NgModule({
   declarations: [
       AdminDashboardViewComponent,
-      LoanAdminListComponent
+      LoanAdminListComponent,
+      RefundAdminListComponent,
+      ReportAdminListComponent
   ],
     imports: [
         CommonModule,

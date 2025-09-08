@@ -13,7 +13,6 @@ import { RefundListComponent } from "../../components/refund/refund-list/refund-
 
 @NgModule({
   declarations: [
-      RefundAdminListComponent,
       RefundFormComponent,
       RefundListComponent
   ],

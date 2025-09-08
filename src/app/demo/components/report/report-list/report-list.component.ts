@@ -1,69 +1,62 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ReportResponseDTO } from '../../../dtos/report/report.response.dto';
 import { environment } from "../../../../../environments/environment";
+
+export interface ReportResponseDTO {
+    id: number;
+    reason: string;
+    reporterEmail: string;
+    reportedUserEmail: string;
+    reportDate: string;
+    open: boolean;
+}
 
 @Component({
     selector: 'app-report-list',
     templateUrl: './report-list.component.html',
-    styleUrls: ['./report-list.component.scss']
 })
-export class ReportListComponent implements OnInit {
+export class ReportUserListComponent implements OnInit {
     reports: ReportResponseDTO[] = [];
     filteredReports: ReportResponseDTO[] = [];
 
-    first: number = 0;
-    rows: number = 5;
+    first = 0;
+    rows = 5;
 
-    reasonFilter: string = '';
-    statusFilter: string = '';
-    startDateFilter: string = '';
-    endDateFilter: string = '';
-
-    reasons = [
-        { name: 'TOUS', code: '' },
-        { name: 'FRAUD', code: 'FRAUD' },
-        { name: 'SPAM', code: 'SPAM' },
-        { name: 'HARASSMENT', code: 'HARASSMENT' }
-    ];
+    statusFilter: boolean | null = null;
+    reasonFilter = '';
 
     statuses = [
-        { name: 'TOUS', code: '' },
-        { name: 'FRAUD', code: 'FRAUD' },
-        { name: 'SPAM', code: 'SPAM' },
-        { name: 'HARASSMENT', code: 'HARASSMENT' }
+        { name: 'Tous', code: null },
+        { name: 'Ouvert', code: true },
+        { name: 'Fermé', code: false }
     ];
 
     constructor(private http: HttpClient) {}
 
     ngOnInit() {
-        this.http.get<ReportResponseDTO[]>(`${environment.apiBaseUrl}/reports`).subscribe({
+        this.http.get<ReportResponseDTO[]>(`${environment.apiBaseUrl}/reports/user`).subscribe({
             next: (data) => {
                 this.reports = data;
-                this.filteredReports = data;
+                this.filteredReports = [...data];
             },
             error: (err) => {
-                console.error('Erreur lors du fetch /api/reports', err);
+                console.error('Erreur lors du fetch /reports/user', err);
             }
         });
     }
 
     applyFilters() {
         this.filteredReports = this.reports.filter(report => {
-            const matchesReason = this.reasonFilter === '' || report.reason === this.reasonFilter;
-            const matchesStatus = this.statusFilter === '' || report.status === this.statusFilter;
-            const matchesStartDate = this.startDateFilter === '' || new Date(report.reportDate) >= new Date(this.startDateFilter);
-            const matchesEndDate = this.endDateFilter === '' || new Date(report.reportDate) <= new Date(this.endDateFilter);
-            return matchesReason && matchesStatus && matchesStartDate && matchesEndDate;
+            const matchesStatus = this.statusFilter === null || report.open === this.statusFilter;
+            const matchesReason = !this.reasonFilter || report.reason.toLowerCase().includes(this.reasonFilter.toLowerCase());
+            return matchesStatus && matchesReason;
         });
         this.reset();
     }
 
     resetFilters() {
+        this.statusFilter = null;
         this.reasonFilter = '';
-        this.statusFilter = '';
-        this.startDateFilter = '';
-        this.endDateFilter = '';
         this.applyFilters();
     }
 

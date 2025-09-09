@@ -131,13 +131,21 @@
         <div class="col-12 lg:col-6">
             <div class="card">
                 <h5>Remboursements à venir</h5>
-                <ul class="list-none m-0 p-0">
-                    <li *ngFor="let r of stats.upcomingRefunds" class="flex justify-content-between py-2 border-bottom-1 surface-border">
-                        <span>{{ r.counterparty }}</span>
-                        <span>{{ r.amount | currency:'USD' }} - {{ r.dueDate | date:'shortDate' }}</span>
-                    </li>
-                </ul>
+
+                <ng-container *ngIf="stats.upcomingRefunds?.length > 0; else noRefunds">
+                    <ul class="list-none m-0 p-0">
+                        <li *ngFor="let r of stats.upcomingRefunds" class="flex justify-content-between py-2 border-bottom-1 surface-border">
+                            <span>{{ r.counterparty }}</span>
+                            <span>{{ r.amount | currency:'USD' }} - {{ r.dueDate | date:'shortDate' }}</span>
+                        </li>
+                    </ul>
+                </ng-container>
+
+                <ng-template #noRefunds>
+                    <p class="text-600 text-center mt-3">Aucun remboursement à venir pour le moment.</p>
+                </ng-template>
             </div>
         </div>
+
     </div>
 </div>

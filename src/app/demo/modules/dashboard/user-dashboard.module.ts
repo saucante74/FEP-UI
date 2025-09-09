@@ -5,7 +5,6 @@ import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
 import { UserDashboardComponent } from "../../components/dashboard/user-dashboard.component";
-import { UserModule } from "../user/user-module";
 import { FrenchDatePipe } from "../../pipe/french-date.pipe";
 
 @NgModule({
@@ -19,7 +18,6 @@ import { FrenchDatePipe } from "../../pipe/french-date.pipe";
         CardModule,
         TableModule,
         ChartModule,
-        UserModule
     ],
     exports: [
         FrenchDatePipe

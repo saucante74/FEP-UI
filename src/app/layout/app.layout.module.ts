@@ -21,6 +21,7 @@ import { ScrollPanelModule } from "primeng/scrollpanel";
 import { ScrollTopModule } from "primeng/scrolltop";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
 import { InMemoryDataService } from "../demo/service/api/in-memory-data.service";
+import { RoleLabelPipe } from "../demo/pipe/role-label.pipe";
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { InMemoryDataService } from "../demo/service/api/in-memory-data.service"
         AppMenuComponent,
         AppSidebarComponent,
         AppLayoutComponent,
+        RoleLabelPipe
     ],
     imports: [
         BrowserModule,
@@ -48,6 +50,6 @@ import { InMemoryDataService } from "../demo/service/api/in-memory-data.service"
         ScrollPanelModule,
         ScrollTopModule
     ],
-    exports: [AppLayoutComponent]
+    exports: [AppLayoutComponent, RoleLabelPipe]
 })
 export class AppLayoutModule { }

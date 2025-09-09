@@ -12,7 +12,6 @@ export interface RefundRequestDTO {
 @Component({
     selector: 'app-refund-form',
     templateUrl: './refund-form.component.html',
-    styleUrls: ['./refund-form.component.scss']
 })
 export class RefundFormComponent {
     refund: RefundRequestDTO = {

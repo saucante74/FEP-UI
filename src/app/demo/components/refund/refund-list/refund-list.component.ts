@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from "../../../../../environments/environment";
 
 export interface RefundResponseDTO {
     id: number;
-    loanId: number;
+    loanReference: string;
     amount: number;
     refundDate: string;
     status: string;
@@ -12,7 +13,6 @@ export interface RefundResponseDTO {
 @Component({
     selector: 'app-refund-list',
     templateUrl: './refund-list.component.html',
-    styleUrls: ['./refund-list.component.scss']
 })
 export class RefundListComponent implements OnInit {
     refunds: RefundResponseDTO[] = [];
@@ -21,41 +21,48 @@ export class RefundListComponent implements OnInit {
     first: number = 0;
     rows: number = 5;
 
-    loanIdFilter: number | null = null;
+    loanReferenceFilter: string = '';
     statusFilter: string = '';
 
     statuses = [
-        { name: 'TOUS', code: '' },
-        { name: 'PENDING', code: 'PENDING' },
-        { name: 'APPROVED', code: 'APPROVED' },
-        { name: 'REJECTED', code: 'REJECTED' }
+        { name: 'Tous', code: '' },
+        { name: 'En attente', code: 'PENDING' },
+        { name: 'Soumis', code: 'SUBMITTED' },
+        { name: 'Approuvé', code: 'APPROVED' },
+        { name: 'Terminé', code: 'COMPLETED' },
+        { name: 'Annulé', code: 'CANCELLED' },
+        { name: 'Payé', code: 'PAID' },
+        { name: 'En retard', code: 'LATE' }
     ];
+
 
     constructor(private http: HttpClient) {}
 
     ngOnInit() {
-        this.http.get<RefundResponseDTO[]>('/api/refunds').subscribe({
+        this.http.get<RefundResponseDTO[]>(`${environment.apiBaseUrl}/refunds/user`).subscribe({
             next: (data) => {
-                this.refunds = data;
+                this.refunds = data.sort((a, b) => new Date(b.refundDate).getTime() - new Date(a.refundDate).getTime())
                 this.filteredRefunds = data;
             },
             error: (err) => {
-                console.error('Erreur lors du fetch /api/refunds', err);
+                console.error('Erreur lors du fetch /refunds/user', err);
             }
         });
     }
 
     applyFilters() {
         this.filteredRefunds = this.refunds.filter(refund => {
-            const matchesLoanId = this.loanIdFilter === null || refund.loanId === this.loanIdFilter;
-            const matchesStatus = this.statusFilter === '' || refund.status === this.statusFilter;
-            return matchesLoanId && matchesStatus;
+            const matchesReference =
+                this.loanReferenceFilter === '' || refund.loanReference.toLowerCase().includes(this.loanReferenceFilter.toLowerCase());
+            const matchesStatus =
+                this.statusFilter === '' || refund.status === this.statusFilter;
+            return matchesReference && matchesStatus;
         });
         this.reset();
     }
 
     resetFilters() {
-        this.loanIdFilter = null;
+        this.loanReferenceFilter = '';
         this.statusFilter = '';
         this.applyFilters();
     }

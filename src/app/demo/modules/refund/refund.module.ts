@@ -1,20 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RefundRoutingModule } from './refund-routing.module';
-import { RefundListComponent } from "../../components/refund/refund-list/refund-list.component";
+import { RefundAdminListComponent } from "../../components/admin/refund/refund-list/refund-admin-list.component";
 import { ButtonModule } from "primeng/button";
 import { TableModule } from "primeng/table";
 import { RefundFormComponent } from "../../components/refund/refund-form/refund-form.component";
 import { DropdownModule } from "primeng/dropdown";
 import { FormsModule } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
+import { RefundListComponent } from "../../components/refund/refund-list/refund-list.component";
+import { RefundStatusLabelPipe } from "../../pipe/refund-status-label.pipe";
 
 
 @NgModule({
-  declarations: [
-      RefundListComponent,
-      RefundFormComponent,
-  ],
+    declarations: [
+        RefundFormComponent,
+        RefundListComponent,
+        RefundStatusLabelPipe,
+    ],
     imports: [
         CommonModule,
         RefundRoutingModule,
@@ -23,6 +26,9 @@ import { InputTextModule } from "primeng/inputtext";
         DropdownModule,
         FormsModule,
         InputTextModule
+    ],
+    exports: [
+        RefundStatusLabelPipe,
     ]
 })
 export class RefundModule { }

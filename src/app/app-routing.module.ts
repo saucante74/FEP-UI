@@ -16,7 +16,6 @@ import { authGuard } from "./demo/service/api/auth.guard";
                     { path: 'loan', loadChildren: () => import('./demo/modules/loan/loan.module').then(m => m.LoanModule) },
                     { path: 'refund', loadChildren: () => import('./demo/modules/refund/refund.module').then(m => m.RefundModule) },
                     { path: 'report', loadChildren: () => import('./demo/modules/report/report.module').then(m => m.ReportModule) },
-                    { path: 'settings', loadChildren: () => import('./demo/modules/settings/setting.module').then(m => m.SettingModule) },
                     { path: 'dashboard', loadChildren: () => import('./demo/modules/dashboard/user-dashboard.module').then(m => m.UserDashboardModule) },
                     { path: 'admin', loadChildren: () => import('./demo/modules/admin/admin.module').then(m => m.AdminModule) },
                 ]

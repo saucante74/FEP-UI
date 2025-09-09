@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from "../../../../../environments/environment";
 
 export interface ReportRequestDTO {
     reason: string;
@@ -12,7 +13,6 @@ export interface ReportRequestDTO {
 @Component({
     selector: 'app-report-form',
     templateUrl: './report-form.component.html',
-    styleUrls: ['./report-form.component.scss']
 })
 export class ReportFormComponent {
     report: ReportRequestDTO = {
@@ -32,7 +32,7 @@ export class ReportFormComponent {
     constructor(private http: HttpClient) {}
 
     submitReport() {
-        this.http.post('/api/reports', this.report).subscribe({
+        this.http.post(`${environment.apiBaseUrl}/reports`, this.report).subscribe({
             next: (response) => {
                 console.log('Rapport créé avec succès :', response);
             },

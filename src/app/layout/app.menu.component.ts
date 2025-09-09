@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
+import { AuthenticationService } from "../demo/service/api/authentication.service";
+import { Router } from "@angular/router";
+import { UserRole } from "../demo/dtos/user/user-role.enum";
 
 @Component({
     selector: 'app-menu',
@@ -9,94 +12,80 @@ export class AppMenuComponent implements OnInit {
 
     model: any[] = [];
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(
+        public layoutService: LayoutService,
+        public authenticationService: AuthenticationService,
+        public router: Router
+    ) { }
 
     ngOnInit() {
+        const role = this.authenticationService.getUserRole();
+
         this.model = [
             {
                 label: 'Accueil',
                 items: [
                     { label: 'Accueil', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
-                    { label: 'Tableau de bord', icon: 'pi pi-th-large', routerLink: ['/tdb/view'] },
+                ]
+            },
+        ];
 
-                ]
-            },
-            {
-                label: 'PRETS',
+        if (UserRole.ADMIN === role) {
+            this.model.push({
+                label: 'Administration',
                 items: [
-                    { label: 'Liste des prêts', icon: 'pi pi-bars', routerLink: ['/loan/list'] },
-                    { label: 'Ajouter un prêt', icon: 'pi pi-plus', routerLink: ['/loan/request'] },
+                    { label: 'Tableau de bord', icon: 'pi pi-th-large', routerLink: ['/admin/dashboard'] },
+                    { label: 'Liste des prêts', icon: 'pi pi-bars', routerLink: ['/admin/loan/list'] },
+                    { label: 'Liste des remboursements', icon: 'pi pi-refresh', routerLink: ['/admin/refund/list'] },
+                    { label: 'Liste des signalements', icon: 'pi pi-bars', routerLink: ['/admin/report/list'] },
                 ]
-            },
-            {
-                label: 'Remboursements',
+            });
+        }
+
+        if (UserRole.LENDER === role || UserRole.BORROWER === role) {
+            this.model.push({
+                label: 'Pilotage',
                 items: [
-                    { label: 'Liste des remboursements', icon: 'pi pi-bars', routerLink: ['/refund/list'] },
-                    { label: 'Ajouter un remboursement', icon: 'pi pi-plus', routerLink: ['/refund/request'] },
+                    { label: 'Tableau de bord', icon: 'pi pi-th-large', routerLink: ['/dashboard'] },
+                    { label: 'Mes prêts', icon: 'pi pi-bars', routerLink: ['/loan/list'] },
+                    { label: 'Mes remboursements', icon: 'pi pi-refresh', routerLink: ['/refund/list'] },
                 ]
-            },
-            {
+            });
+
+            const marketItems = [
+                { label: 'Trouver un prêt', icon: 'pi pi-desktop', routerLink: ['/loan/marketplace'] }
+            ];
+
+            if (UserRole.LENDER === role) {
+                marketItems.push({ label: 'Proposer un prêt', icon: 'pi pi-plus', routerLink: ['/loan/request'] });
+            }
+
+            this.model.push({
+                label: 'Marché',
+                items: marketItems
+            });
+
+            this.model.push({
                 label: 'Signalements',
                 items: [
-                    { label: 'Liste des signalements', icon: 'pi pi-bars', routerLink: ['/report/list'] },
-                    { label: 'Ajouter un signalement', icon: 'pi pi-plus', routerLink: ['/report/form'] },
+                    { label: 'Mes signalements', icon: 'pi pi-bars', routerLink: ['/report/list'] },
                 ]
-            },
-            {
-                label: 'Settings',
-                items: [
-                    { label: 'Settings', icon: 'pi pi-fw pi-home', routerLink: ['/settings'] },
-                ]
-            },
-            {
-                label: 'Authentication',
-                items: [
-                    { label: 'Login', icon: 'pi pi-fw pi-home', routerLink: ['/auth/login'] },
-                    { label: 'Register', icon: 'pi pi-fw pi-home', routerLink: ['/auth/register'] },
-                ],
-            },
-            {
-                label: 'Pages',
-                icon: 'pi pi-fw pi-briefcase',
-                items: [
-                    {
-                        label: 'Auth',
-                        icon: 'pi pi-fw pi-user',
-                        items: [
-                            {
-                                label: 'Login',
-                                icon: 'pi pi-fw pi-sign-in',
-                                routerLink: ['/auth/login']
-                            },
-                            {
-                                label: 'Error',
-                                icon: 'pi pi-fw pi-times-circle',
-                                routerLink: ['/auth/error']
-                            },
-                            {
-                                label: 'Access Denied',
-                                icon: 'pi pi-fw pi-lock',
-                                routerLink: ['/auth/access']
-                            }
-                        ]
+            });
+        }
+
+        this.model.push({
+            label: 'Déconnexion',
+            items: [
+                {
+                    label: 'Déconnexion',
+                    icon: 'pi pi-sign-out',
+                    command: () => {
+                        this.authenticationService.logout();
+                        this.router.navigate(['/auth/login']);
                     },
-                    {
-                        label: 'Crud',
-                        icon: 'pi pi-fw pi-pencil',
-                        routerLink: ['/pages/crud']
-                    },
-                    {
-                        label: 'Timeline',
-                        icon: 'pi pi-fw pi-calendar',
-                        routerLink: ['/pages/timeline']
-                    },
-                    {
-                        label: 'Not Found',
-                        icon: 'pi pi-fw pi-exclamation-circle',
-                        routerLink: ['/notfound']
-                    },
-                ]
-            }
-        ];
+                    routerLink: ['/logout'],
+                },
+            ]
+        });
     }
 }

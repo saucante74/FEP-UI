@@ -1,0 +1,20 @@
+<div *ngIf="loan" class="card">
+    <h2>Détail du prêt</h2>
+
+    <p><strong>Prêteur :</strong> {{ loan.lender.firstName }} {{ loan.lender.lastName }}</p>
+    <p><strong>Email :</strong> {{ loan.lender.email }}</p>
+    <p><strong>Montant :</strong> {{ loan.amount | currency:'EUR' }}</p>
+    <p><strong>Taux d'intérêt :</strong> {{ loan.interestRate }}%</p>
+    <p><strong>Durée :</strong> {{ loan.durationInMonths }} mois</p>
+
+    <p *ngIf="isAlreadySubscribed()" class="text-green-600 font-bold">
+        ✅ Vous avez déjà postulé à ce prêt. Vous serez informé lorsque le prêteur aura validé votre demande.
+    </p>
+
+    <button *ngIf="!isAlreadySubscribed()"
+            pButton type="button" label="Postuler"
+            icon="pi pi-check"
+            class="p-button-label w-full mt-2"
+            (click)="applyForLoan()">
+    </button>
+</div>

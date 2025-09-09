@@ -1,24 +1,40 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
+import { catchError, Observable, throwError } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+
+    constructor(private router: Router) {}
+
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        const token = localStorage.getItem('access_token');
 
-        const token: string = '        const token: string = \'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTFAdGVzdC5mciIsImlhdCI6MTcyNDYwMDQ1NCwiZXhwIjoxNzI0NjA0MDU0fQ.nmBJKQPi-MXavtJf6N1zJO3dGxvUrv4Mcxs4NdNMHnQ\';\n';
+        const isPublicEndpoint =
+            req.url.includes('/auth/authenticate') ||
+            req.url.includes('/auth/register') ||
+            req.url.includes('/auth/reset-password') ||
+            req.url.includes('/auth/reset-password-request');
 
-
-        req = req.clone({
+        let authReq = req.clone({
             setHeaders: {
-                'Content-Type' : 'application/json; charset=utf-8',
-                'Accept'       : 'application/json',
-                // 'Authorization': `Bearer ${token}`,
-            },
+                'Content-Type': 'application/json; charset=utf-8',
+                'Accept': 'application/json',
+                ...(token && !isPublicEndpoint ? { 'Authorization': `Bearer ${token}` } : {})
+            }
         });
 
-        console.log('HTTP Request:', req);
+        console.log('HTTP Request:', authReq);
 
-        return next.handle(req);
+        return next.handle(authReq).pipe(
+            catchError((error: HttpErrorResponse) => {
+                if (error.status === 401) {
+                    localStorage.removeItem('access_token');
+                    this.router.navigate(['/auth/login']);
+                }
+                return throwError(() => error);
+            })
+        );
     }
 }

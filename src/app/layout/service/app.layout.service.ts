@@ -164,4 +164,14 @@ export class LayoutService {
     loadThemeFromLocalStorage(): string {
         return localStorage.getItem(THEME);
     }
+
+    getUserFullName(): string {
+        const user = this.getUserInfo();
+        return user ? `${user.firstName} ${user.lastName}` : '';
+    }
+
+    getUserInfo() {
+        const user = localStorage.getItem('user');
+        return user ? JSON.parse(user) : null;
+    }
 }

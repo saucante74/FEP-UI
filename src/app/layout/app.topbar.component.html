@@ -12,13 +12,8 @@
     </button>
 
     <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-        <button class="p-link layout-topbar-button">
-            <i class="pi pi-user"></i>
-            <span>Profile</span>
-        </button>
-        <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
-            <i class="pi pi-cog"></i>
-            <span>Settings</span>
+        <button class="p-link" [routerLink]="'/documentation'">
+            <span class="text-primary-700">{{ userInfo.role | roleLabel }} : {{ userInfo.firstName }} {{ userInfo.lastName }}</span>
         </button>
         <a class="p-link layout-topbar-button" (click)="this.toggleDarkMode()">
             <i class="pi" [class.pi-moon]="!isDarkMode" [class.pi-sun]="isDarkMode"></i>

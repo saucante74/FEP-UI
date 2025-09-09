@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from "../../../../../environments/environment";
+import { LayoutService } from "../../../../layout/service/app.layout.service";
 
 export interface LoanResponseDTO {
     amount: number;
     interestRate: number;
     durationInMonths: number;
     status: string;
-    borrowerId: number;
+    lender: { firstName: string; lastName: string };
+    borrower: { firstName: string; lastName: string };
 }
 
 @Component({
     selector: 'app-loan-list',
     templateUrl: './loan-list.component.html',
-    styleUrls: ['./loan-list.component.scss']
 })
 export class LoanListComponent implements OnInit {
     loans: LoanResponseDTO[] = [];
@@ -26,25 +28,31 @@ export class LoanListComponent implements OnInit {
     statusFilter: string = '';
 
     statuses = [
-        { name: 'TOUS', code: '' },
-        { name: 'PENDING', code: 'PENDING' },
-        { name: 'IN_PROGRESS', code: 'IN_PROGRESS' },
-        { name: 'COMPLETED', code: 'COMPLETED' }
+        { name: 'Tous', code: '' },
+        { name: 'En attente', code: 'PENDING' },
+        { name: 'En cours', code: 'IN_PROGRESS' },
+        { name: 'Terminé', code: 'COMPLETED' }
     ];
 
-    constructor(private http: HttpClient) {}
+
+    userRole: string = '';
+
+    constructor(private http: HttpClient, private layoutService: LayoutService) {}
 
     ngOnInit() {
-        this.http.get<LoanResponseDTO[]>('/api/loans').subscribe({
+        this.userRole = this.layoutService.getUserInfo().role;
+
+        this.http.get<LoanResponseDTO[]>(`${environment.apiBaseUrl}/loans/user`).subscribe({
             next: (data) => {
                 this.loans = data;
                 this.filteredLoans = data;
             },
             error: (err) => {
-                console.error('Erreur lors du fetch /api/loans', err);
+                console.error('Erreur lors du fetch /loans/user', err);
             }
         });
     }
+
 
     applyFilters() {
         this.filteredLoans = this.loans.filter(loan => {

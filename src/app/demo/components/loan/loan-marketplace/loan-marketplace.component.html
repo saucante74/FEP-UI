@@ -1,0 +1,30 @@
+<div class="grid">
+    <div class="col-12 md:col-6 lg:col-4" *ngFor="let loan of loans">
+        <div class="card">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-2">Prêteur</span>
+                    <div class="text-900 font-semibold text-lg">
+                        {{ loan.lender.firstName }} {{ loan.lender.lastName }}
+                    </div>
+                    <small class="text-500">{{ loan.lender.email }}</small>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-green-100 border-round"
+                     [ngStyle]="{ width: '2.5rem', height: '2.5rem' }">
+                    <i class="pi pi-briefcase text-green-500 text-xl"></i>
+                </div>
+            </div>
+
+            <p><strong>Montant :</strong> {{ loan.amount | currency:'EUR' }}</p>
+            <p><strong>Taux d'intérêt :</strong> {{ loan.interestRate }}%</p>
+            <p><strong>Durée :</strong> {{ loan.durationInMonths }} mois</p>
+
+            <button pButton type="button" label="Voir le détail"
+                    icon="pi pi-eye"
+                    class="p-button-label w-full mt-2"
+                    [routerLink]="['/loan/apply', loan.id]">
+            </button>
+
+        </div>
+    </div>
+</div>

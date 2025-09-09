@@ -13,6 +13,7 @@ export interface LoginResponse {
     expiresIn: number,
     firstName: string,
     lastName: string,
+    email: string,
     role: string,
 }
 
@@ -32,11 +33,30 @@ export class AuthenticationService {
                 localStorage.setItem('user', JSON.stringify({
                     firstName: response.firstName,
                     lastName: response.lastName,
+                    email: response.email,
                     role: response.role,
                 }));
             })
         );
     }
+
+    register(payload: any) {
+        return this.httpClient.post<LoginResponse>(
+            `${environment.apiBaseUrl}/auth/register`,
+            payload
+        ).pipe(
+            tap((response: LoginResponse) => {
+                localStorage.setItem('access_token', response.token);
+                localStorage.setItem('user', JSON.stringify({
+                    firstName: response.firstName,
+                    lastName: response.lastName,
+                    email: response.email,
+                    role: response.role,
+                }));
+            })
+        );
+    }
+
 
     logout() {
         localStorage.removeItem('access_token');

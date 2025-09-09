@@ -13,7 +13,6 @@ export interface ReportRequestDTO {
 @Component({
     selector: 'app-report-form',
     templateUrl: './report-form.component.html',
-    styleUrls: ['./report-form.component.scss']
 })
 export class ReportFormComponent {
     report: ReportRequestDTO = {

@@ -13,27 +13,9 @@
         </div>
 
         <div class="field col-4">
-            <label for="borrowerId">ID Emprunteur</label>
-            <input id="borrowerId" type="number" pInputText [(ngModel)]="loan.borrowerId" />
-        </div>
-
-        <div class="field col-6">
             <label for="duration">Durée (mois)</label>
             <input id="duration" type="number" pInputText [(ngModel)]="loan.durationInMonths" />
         </div>
-
-        <div class="field col-6">
-            <label for="status">Statut</label>
-            <p-dropdown
-                [options]="statuses"
-                [(ngModel)]="loan.status"
-                optionLabel="name"
-                optionValue="code"
-                placeholder="Sélectionner un statut"
-                inputId="status"
-            ></p-dropdown>
-        </div>
-
     </div>
 
     <div class="mt-3 field col-6 col-offset-3">

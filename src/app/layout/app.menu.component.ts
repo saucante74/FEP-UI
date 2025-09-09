@@ -52,12 +52,17 @@ export class AppMenuComponent implements OnInit {
                 ]
             });
 
+            const marketItems = [
+                { label: 'Trouver un prêt', icon: 'pi pi-desktop', routerLink: ['/loan/marketplace'] }
+            ];
+
+            if (UserRole.LENDER === role) {
+                marketItems.push({ label: 'Proposer un prêt', icon: 'pi pi-plus', routerLink: ['/loan/request'] });
+            }
+
             this.model.push({
                 label: 'Marché',
-                items: [
-                    { label: 'Trouver un prêt', icon: 'pi pi-desktop', routerLink: ['/loan/marketplace'] },
-                    { label: 'Proposer un prêt', icon: 'pi pi-plus', routerLink: ['/loan/request'] },
-                ]
+                items: marketItems
             });
 
             this.model.push({
@@ -67,13 +72,6 @@ export class AppMenuComponent implements OnInit {
                 ]
             });
         }
-
-        this.model.push({
-            label: 'Settings',
-            items: [
-                { label: 'Settings', icon: 'pi pi-fw pi-home', routerLink: ['/settings'] },
-            ]
-        });
 
         this.model.push({
             label: 'Déconnexion',

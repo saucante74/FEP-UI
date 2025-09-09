@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from "../../../../../environments/environment";
+import { LayoutService } from "../../../../layout/service/app.layout.service";
 
 export interface LoanResponseDTO {
     amount: number;
@@ -27,15 +28,20 @@ export class LoanListComponent implements OnInit {
     statusFilter: string = '';
 
     statuses = [
-        { name: 'TOUS', code: '' },
-        { name: 'PENDING', code: 'PENDING' },
-        { name: 'IN_PROGRESS', code: 'IN_PROGRESS' },
-        { name: 'COMPLETED', code: 'COMPLETED' }
+        { name: 'Tous', code: '' },
+        { name: 'En attente', code: 'PENDING' },
+        { name: 'En cours', code: 'IN_PROGRESS' },
+        { name: 'Terminé', code: 'COMPLETED' }
     ];
 
-    constructor(private http: HttpClient) {}
+
+    userRole: string = '';
+
+    constructor(private http: HttpClient, private layoutService: LayoutService) {}
 
     ngOnInit() {
+        this.userRole = this.layoutService.getUserInfo().role;
+
         this.http.get<LoanResponseDTO[]>(`${environment.apiBaseUrl}/loans/user`).subscribe({
             next: (data) => {
                 this.loans = data;
@@ -46,6 +52,7 @@ export class LoanListComponent implements OnInit {
             }
         });
     }
+
 
     applyFilters() {
         this.filteredLoans = this.loans.filter(loan => {

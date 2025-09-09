@@ -22,12 +22,16 @@
                 inputId="statusFilter"
             ></p-dropdown>
         </div>
+
+        <div class="mt-4 pt-1 col-3 col-offset-6">
+            <button pButton type="button" label="Appliquer les filtres" icon="pi pi-filter" (click)="applyFilters()"></button>
+        </div>
+        <div class="mt-4 pt-1 col-3">
+            <button pButton type="button" label="Réinitialiser" icon="pi pi-refresh" class="p-button-secondary ml-2" (click)="resetFilters()"></button>
+        </div>
     </div>
 
-    <div class="flex gap-2 mt-2 col-8 col-offset-2">
-        <button pButton type="button" label="Appliquer les filtres" icon="pi pi-filter" (click)="applyFilters()"></button>
-        <button pButton type="button" label="Réinitialiser" icon="pi pi-refresh" severity="secondary" (click)="resetFilters()"></button>
-    </div>
+
 </div>
 
 <div class="card">
@@ -49,24 +53,25 @@
                 <th>Taux d'intérêt</th>
                 <th>Durée (mois)</th>
                 <th>Statut</th>
-                <th>Prêteur</th>
-                <th>Emprunteur</th>
+                <th *ngIf="userRole === 'BORROWER'">Prêteur</th>
+                <th *ngIf="userRole === 'LENDER'">Emprunteur</th>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-loan>
             <tr>
+
                 <td>{{ loan.amount | currency:'EUR' }}</td>
                 <td>{{ loan.interestRate }} %</td>
                 <td>{{ loan.durationInMonths }}</td>
-                <td>{{ loan.status }}</td>
-                <td>{{ loan.lender.lastName }} {{ loan.lender.firstName }}</td>
-                <td>{{ loan.borrower.lastName }} {{ loan.borrower.firstName }}</td>
+                <td>{{ loan.status | statusLabel }}</td>
+                <td *ngIf="userRole === 'BORROWER'">
+                    {{ loan.lender.lastName }} {{ loan.lender.firstName }}
+                </td>
+                <td *ngIf="userRole === 'LENDER'">
+                    {{ loan.borrower.lastName }} {{ loan.borrower.firstName }}
+                </td>
             </tr>
-        </ng-template>
-
-        <ng-template pTemplate="paginatorleft">
-            <p-button type="button" icon="pi pi-plus" text></p-button>
         </ng-template>
     </p-table>
 </div>

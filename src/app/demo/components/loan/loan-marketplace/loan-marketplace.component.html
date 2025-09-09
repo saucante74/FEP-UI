@@ -19,11 +19,12 @@
             <p><strong>Taux d'intérêt :</strong> {{ loan.interestRate }}%</p>
             <p><strong>Durée :</strong> {{ loan.durationInMonths }} mois</p>
 
-            <button pButton type="button" label="Souscrire"
-                    icon="pi pi-check"
+            <button pButton type="button" label="Voir le détail"
+                    icon="pi pi-eye"
                     class="p-button-label w-full mt-2"
-                    (click)="applyForLoan(loan)">
+                    [routerLink]="['/loan/apply', loan.id]">
             </button>
+
         </div>
     </div>
 </div>

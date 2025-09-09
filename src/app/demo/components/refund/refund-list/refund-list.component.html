@@ -42,8 +42,7 @@
     >
         <ng-template pTemplate="header">
             <tr>
-                <th>ID</th>
-                <th>Référence</th>
+                <th>Référence du prêt</th>
                 <th>Montant</th>
                 <th>Date de remboursement</th>
                 <th>Statut</th>
@@ -52,16 +51,11 @@
 
         <ng-template pTemplate="body" let-refund>
             <tr>
-                <td>{{ refund.id }}</td>
                 <td>{{ refund.loanReference }}</td>
                 <td>{{ refund.amount | currency:'EUR' }}</td>
                 <td>{{ refund.refundDate | date:'dd/MM/yyyy' }}</td>
-                <td>{{ refund.status }}</td>
+                <td>{{ refund.status | refundStatusLabel }}</td>
             </tr>
-        </ng-template>
-
-        <ng-template pTemplate="paginatorleft">
-            <p-button type="button" icon="pi pi-plus" text></p-button>
         </ng-template>
     </p-table>
 </div>

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { AuthenticationService, LoginResponse } from '../../../service/api/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-login',
+    selector: 'app-register',
     templateUrl: './register.component.html',
     styles: [`
         :host ::ng-deep .pi-eye,
@@ -14,8 +16,37 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
     `]
 })
 export class RegisterComponent {
+    formData = {
+        username: '',
+        email: '',
+        lastname: '',
+        firstname: '',
+        role: '',
+        password: ''
+    };
 
-    password!: string;
+    roles = [
+        { label: 'Emprunteur', value: 'BORROWER' },
+        { label: 'Prêteur', value: 'LENDER' }
+    ];
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(
+        public layoutService: LayoutService,
+        private authenticationService: AuthenticationService,
+        private router: Router
+    ) {}
+
+    onSubmit() {
+        console.log('Payload d’inscription :', this.formData);
+
+        this.authenticationService.register(this.formData).subscribe({
+            next: (response: LoginResponse) => {
+                console.log('Inscription réussie', response);
+                this.router.navigate(['/']);
+            },
+            error: (err) => {
+                console.error('Erreur lors de l’inscription', err);
+            }
+        });
+    }
 }

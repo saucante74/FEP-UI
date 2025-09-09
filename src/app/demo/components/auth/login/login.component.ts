@@ -17,8 +17,6 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent {
 
-    valCheck: string[] = ['remember'];
-
     email!: string;
 
     password!: string;
@@ -48,5 +46,9 @@ export class LoginComponent {
 
     goToForgotPassword() {
         this.router.navigate(['/auth/reset-password']);
+    }
+
+    goToRegistration() {
+        this.router.navigate(['/auth/register']);
     }
 }

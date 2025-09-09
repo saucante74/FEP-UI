@@ -8,15 +8,18 @@ import { DropdownModule } from "primeng/dropdown";
 import { FormsModule } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
 import { LoanMarketplaceComponent } from "../../components/loan/loan-marketplace/loan-marketplace.component";
-import { LoanAdminListComponent } from "../../components/admin/loan/loan-list/loan-admin-list.component";
 import { LoanListComponent } from "../../components/loan/loan-list/loan-list.component";
+import { StatusLabelPipe } from "../../pipe/status-label.pipe";
+import { LoanApplyComponent } from "../../components/loan/loan-apply/loan-apply.component";
 
 
 @NgModule({
   declarations: [
       LoanRequestComponent,
       LoanMarketplaceComponent,
-      LoanListComponent
+      LoanListComponent,
+      LoanApplyComponent,
+      StatusLabelPipe,
   ],
     imports: [
         CommonModule,
@@ -26,6 +29,10 @@ import { LoanListComponent } from "../../components/loan/loan-list/loan-list.com
         DropdownModule,
         FormsModule,
         InputTextModule
+    ],
+    exports: [
+        StatusLabelPipe
     ]
+
 })
 export class LoanModule { }

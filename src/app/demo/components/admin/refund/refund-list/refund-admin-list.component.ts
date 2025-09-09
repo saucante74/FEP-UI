@@ -13,7 +13,6 @@ export interface RefundResponseDTO {
 @Component({
     selector: 'app-refund-list',
     templateUrl: './refund-admin-list.component.html',
-    styleUrls: ['./refund-admin-list.component.scss']
 })
 export class RefundAdminListComponent implements OnInit {
     refunds: RefundResponseDTO[] = [];

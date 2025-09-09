@@ -25,19 +25,23 @@ export class RefundListComponent implements OnInit {
     statusFilter: string = '';
 
     statuses = [
-        { name: 'TOUS', code: '' },
-        { name: 'PENDING', code: 'PENDING' },
-        { name: 'APPROVED', code: 'APPROVED' },
-        { name: 'REJECTED', code: 'REJECTED' },
-        { name: 'LATE', code: 'LATE' }
+        { name: 'Tous', code: '' },
+        { name: 'En attente', code: 'PENDING' },
+        { name: 'Soumis', code: 'SUBMITTED' },
+        { name: 'Approuvé', code: 'APPROVED' },
+        { name: 'Terminé', code: 'COMPLETED' },
+        { name: 'Annulé', code: 'CANCELLED' },
+        { name: 'Payé', code: 'PAID' },
+        { name: 'En retard', code: 'LATE' }
     ];
+
 
     constructor(private http: HttpClient) {}
 
     ngOnInit() {
         this.http.get<RefundResponseDTO[]>(`${environment.apiBaseUrl}/refunds/user`).subscribe({
             next: (data) => {
-                this.refunds = data;
+                this.refunds = data.sort((a, b) => new Date(b.refundDate).getTime() - new Date(a.refundDate).getTime())
                 this.filteredRefunds = data;
             },
             error: (err) => {

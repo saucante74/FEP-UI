@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from "../../../../../environments/environment";
+import { Router } from "@angular/router";
 
 export interface ReportRequestDTO {
     reason: string;
@@ -29,15 +30,15 @@ export class ReportFormComponent {
         { name: 'HARASSMENT', code: 'HARASSMENT' }
     ];
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private router: Router) {}
 
     submitReport() {
         this.http.post(`${environment.apiBaseUrl}/reports`, this.report).subscribe({
             next: (response) => {
-                console.log('Rapport créé avec succès :', response);
+                this.router.navigate(['/dashboard']);
             },
             error: (err) => {
-                console.error('Erreur lors de la création du rapport :', err);
+                this.router.navigate(['/dashboard']);
             }
         });
     }

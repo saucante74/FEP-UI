@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from "../../../../../../environments/environment";
+import { Router } from "@angular/router";
 
 export interface LoanResponseDTO {
     amount: number;
@@ -32,17 +33,16 @@ export class LoanAdminListComponent implements OnInit {
         { name: 'COMPLETED', code: 'COMPLETED' }
     ];
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private router: Router) {}
 
     ngOnInit() {
         this.http.get<LoanResponseDTO[]>(`${environment.apiBaseUrl}/loans`).subscribe({
             next: (data) => {
-                console.log(data)
                 this.loans = data;
                 this.filteredLoans = data;
             },
             error: (err) => {
-                console.error('Erreur lors du fetch /api/loans', err);
+                this.router.navigate(['/dashboard'])
             }
         });
     }

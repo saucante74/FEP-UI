@@ -22,7 +22,6 @@ export class UpdatePasswordComponent {
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
             this.token = (params['token'] || '').replace(/=*$/, '');
-            console.log(this.token);
         });
     }
 
@@ -41,7 +40,6 @@ export class UpdatePasswordComponent {
                 setTimeout(() => this.router.navigate(['/auth/login']), 2000);
             },
             error: (err) => {
-                console.error('Update password failed', err);
                 this.error = 'Impossible de réinitialiser le mot de passe ❌';
             }
         });

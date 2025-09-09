@@ -38,7 +38,6 @@ export class AppTopBarComponent {
 
     ngOnInit() {
         this.userInfo = this.layoutService.getUserInfo();
-        console.log(this.userInfo)
     }
 
     toggleDarkMode() {

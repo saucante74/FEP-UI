@@ -35,11 +35,10 @@ export class LoginComponent {
     onSubmit() {
         this.authenticationService.login(this.formData).subscribe({
             next: (value: LoginResponse) => {
-                console.log('Login success', value);
                 this.router.navigate(['/']);
             },
             error: (err) => {
-                console.error('Login failed', err);
+                this.router.navigate(['/dashboard'])
             }
         });
     }

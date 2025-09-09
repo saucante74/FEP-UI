@@ -21,7 +21,6 @@ export class ResetPasswordComponent {
                 this.success = 'Un email de réinitialisation vous a été envoyé !';
             },
             error: (err) => {
-                console.error('Password reset request failed', err);
                 this.error = 'Impossible d’envoyer l’email de réinitialisation.';
             }
         });

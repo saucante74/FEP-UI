@@ -37,11 +37,8 @@ export class RegisterComponent {
     ) {}
 
     onSubmit() {
-        console.log('Payload d’inscription :', this.formData);
-
         this.authenticationService.register(this.formData).subscribe({
             next: (response: LoginResponse) => {
-                console.log('Inscription réussie', response);
                 this.router.navigate(['/']);
             },
             error: (err) => {

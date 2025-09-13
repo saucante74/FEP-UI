@@ -12,15 +12,24 @@ import { FormsModule } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
 import { RefundAdminListComponent } from "../../components/admin/refund/refund-list/refund-admin-list.component";
 import { ReportAdminListComponent } from "../../components/admin/report/report-list/report-admin-list.component";
+import { PendingUsersComponent } from "../../components/admin/pending-users/pending-users.component";
+import { TagModule } from "primeng/tag";
+import { AppLayoutModule } from "../../../layout/app.layout.module";
+import { ReportReasonLabelPipe } from "../../pipe/report-reason-label.pipe";
 
 
 @NgModule({
-  declarations: [
-      AdminDashboardViewComponent,
-      LoanAdminListComponent,
-      RefundAdminListComponent,
-      ReportAdminListComponent
-  ],
+    declarations: [
+        AdminDashboardViewComponent,
+        LoanAdminListComponent,
+        RefundAdminListComponent,
+        ReportAdminListComponent,
+        PendingUsersComponent,
+        ReportReasonLabelPipe
+    ],
+    exports: [
+        ReportReasonLabelPipe
+    ],
     imports: [
         CommonModule,
         AdminRoutingModule,
@@ -29,7 +38,9 @@ import { ReportAdminListComponent } from "../../components/admin/report/report-l
         ButtonModule,
         DropdownModule,
         FormsModule,
-        InputTextModule
+        InputTextModule,
+        TagModule,
+        AppLayoutModule
     ]
 })
 export class AdminModule { }

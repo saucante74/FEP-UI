@@ -1,7 +1,6 @@
-export const PORTFOLIO_TYPES = [
-    'Stock',
-    'Cryptocurrency',
-    'Real Estate',
-    'Fiat',
-    'Other',
+export const USER_STATUS = [
+    'PENDING_VALIDATION',
+    'VALIDATED',
+    'REJECTED',
+    'BLOCKED',
 ];

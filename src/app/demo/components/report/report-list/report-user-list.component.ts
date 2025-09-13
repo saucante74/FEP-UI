@@ -1,19 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from "../../../../../environments/environment";
-
-export interface ReportResponseDTO {
-    id: number;
-    reason: string;
-    reporterEmail: string;
-    reportedUserEmail: string;
-    reportDate: string;
-    open: boolean;
-}
+import { ReportResponseDTO } from "../../../dtos/report/report.response.dto";
+import { REPORT_REASONS, REPORT_STATUSES } from "../../constants/report.constants";
 
 @Component({
     selector: 'app-report-list',
-    templateUrl: './report-list.component.html',
+    templateUrl: './report-user-list.component.html',
 })
 export class ReportUserListComponent implements OnInit {
     reports: ReportResponseDTO[] = [];
@@ -25,11 +18,8 @@ export class ReportUserListComponent implements OnInit {
     statusFilter: boolean | null = null;
     reasonFilter = '';
 
-    statuses = [
-        { name: 'Tous', code: null },
-        { name: 'Ouvert', code: true },
-        { name: 'Fermé', code: false }
-    ];
+    reasons = [{ code: '', label: 'Tous' }, ...REPORT_REASONS];
+    statuses = [{ code: null, label: 'Tous' }, ...REPORT_STATUSES];
 
     constructor(private http: HttpClient) {}
 
@@ -48,7 +38,7 @@ export class ReportUserListComponent implements OnInit {
     applyFilters() {
         this.filteredReports = this.reports.filter(report => {
             const matchesStatus = this.statusFilter === null || report.open === this.statusFilter;
-            const matchesReason = !this.reasonFilter || report.reason.toLowerCase().includes(this.reasonFilter.toLowerCase());
+            const matchesReason = this.reasonFilter === '' || report.reason === this.reasonFilter;
             return matchesStatus && matchesReason;
         });
         this.reset();

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ReportResponseDTO } from '../../../../dtos/report/report.response.dto';
 import { environment } from "../../../../../../environments/environment";
+import { REPORT_REASONS, REPORT_STATUSES } from "../../../constants/report.constants";
+import { UserStatus } from "../../../../dtos/user/user-status.enum";
+import { forkJoin } from "rxjs";
 
 @Component({
     selector: 'app-report-list',
@@ -11,39 +14,27 @@ export class ReportAdminListComponent implements OnInit {
     reports: ReportResponseDTO[] = [];
     filteredReports: ReportResponseDTO[] = [];
 
-    first: number = 0;
-    rows: number = 5;
+    first = 0;
+    rows = 5;
 
     reasonFilter: string = '';
     statusFilter: string = '';
     startDateFilter: string = '';
     endDateFilter: string = '';
 
-    reasons = [
-        { name: 'TOUS', code: '' },
-        { name: 'FRAUD', code: 'FRAUD' },
-        { name: 'SPAM', code: 'SPAM' },
-        { name: 'HARASSMENT', code: 'HARASSMENT' }
-    ];
-
-    statuses = [
-        { name: 'TOUS', code: '' },
-        { name: 'FRAUD', code: 'FRAUD' },
-        { name: 'SPAM', code: 'SPAM' },
-        { name: 'HARASSMENT', code: 'HARASSMENT' }
-    ];
+    reasons = [{ code: '', label: 'Tous' }, ...REPORT_REASONS];
+    statuses = [{ code: null, label: 'Tous' }, ...REPORT_STATUSES];
 
     constructor(private http: HttpClient) {}
 
     ngOnInit() {
+        console.log('REPORT_REASONS', this.reasons);
+
         this.http.get<ReportResponseDTO[]>(`${environment.apiBaseUrl}/reports`).subscribe({
             next: (data) => {
                 this.reports = data;
                 this.filteredReports = data;
             },
-            error: (err) => {
-                console.error('Erreur lors du fetch /api/reports', err);
-            }
         });
     }
 
@@ -64,6 +55,25 @@ export class ReportAdminListComponent implements OnInit {
         this.startDateFilter = '';
         this.endDateFilter = '';
         this.applyFilters();
+    }
+
+
+    blockUser(userId: number, reportId: number) {
+        const userPayload = { status: UserStatus.BLOCKED };
+        const reportPayload = { isOpen: false };
+
+        const blockUser$ = this.http.patch(`${environment.apiBaseUrl}/users/${userId}`, userPayload);
+        const closeReport$ = this.http.patch(`${environment.apiBaseUrl}/reports/${reportId}`, reportPayload);
+
+        forkJoin([blockUser$, closeReport$]).subscribe({
+            next: ([userRes, reportRes]) => {
+                alert(`Utilisateur bloqué et rapport fermé avec succès.`);
+                window.location.reload();
+            },
+            error: (err) => {
+                alert(`Échec du blocage ou de la fermeture du rapport.`);
+            }
+        });
     }
 
     next() { this.first += this.rows; }

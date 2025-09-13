@@ -4,6 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { LoanResponseDTO } from "../../../dtos/loan/loan-response.dto";
 import { environment } from "../../../../../environments/environment";
 import { LayoutService } from "../../../../layout/service/app.layout.service";
+import { AuthenticationService } from "../../../service/api/authentication.service";
+import { ReportResponseDTO } from "../../../dtos/report/report.response.dto";
+import { MENU_LABELS } from "../../constants/menu.constants";
 
 @Component({
     selector: 'app-loan-apply',
@@ -12,18 +15,48 @@ import { LayoutService } from "../../../../layout/service/app.layout.service";
 export class LoanApplyComponent implements OnInit {
     loan?: LoanResponseDTO;
     currentUserEmail?: string;
+    alreadyReported: boolean = false;
 
-    constructor(private route: ActivatedRoute, private http: HttpClient, private layoutService: LayoutService) {}
+    reportDialogVisible: boolean = false;
+    reportReasons = [
+        { label: 'Fraude', value: 'FRAUD' },
+        { label: 'Spam', value: 'SPAM' },
+        { label: 'Abus', value: 'ABUSE' },
+        { label: 'Autre', value: 'OTHER' }
+    ];
+    selectedReason: string | null = null;
+
+    constructor(
+        private route: ActivatedRoute,
+        private http: HttpClient,
+        private layoutService: LayoutService,
+        private authenticationService: AuthenticationService
+    ) {}
 
     ngOnInit() {
         const loanId = this.route.snapshot.paramMap.get('id');
+        this.currentUserEmail = this.authenticationService.getUserInfo().email;
+        console.log(this.currentUserEmail)
 
         this.http.get<LoanResponseDTO>(`${environment.apiBaseUrl}/loans/${loanId}`)
-            .subscribe(data => this.loan = data);
+            .subscribe(data => {
+                this.loan = data;
 
-        this.http.get<{ email: string }>(`${environment.apiBaseUrl}/users/me`)
-            .subscribe(user => this.currentUserEmail = user.email);
+                this.http.get<ReportResponseDTO[]>(`${environment.apiBaseUrl}/reports/user`).subscribe(reports => {
+                    console.log("Reports reçus:", reports);
+                    console.log("Loan ID courant:", this.loan?.id);
+                    console.log("Email courant:", this.currentUserEmail);
+
+                    this.alreadyReported = reports.some(r =>
+                        r.reportedLoanReference === this.loan?.reference && r.reporterEmail === this.currentUserEmail
+                    );
+
+                    console.log("AlreadyReported ?", this.alreadyReported);
+                });
+
+            });
     }
+
 
     applyForLoan() {
         if (!this.loan) return;
@@ -40,4 +73,33 @@ export class LoanApplyComponent implements OnInit {
         const userInfo = this.layoutService.getUserInfo();
         return this.loan?.borrower?.email === userInfo.email;
     }
+
+    showReportDialog() {
+        this.reportDialogVisible = true;
+    }
+
+    reportLoan() {
+        if (!this.loan || !this.selectedReason) return;
+
+        const payload = {
+            reportedUserId: this.loan.lender.id,
+            reportedLoanId: this.loan.id,
+            reason: this.selectedReason
+        };
+
+        this.http.post(`${environment.apiBaseUrl}/reports`, payload).subscribe({
+            next: () => {
+                alert("Le prêt a bien été signalé. Merci pour votre vigilance !");
+                this.reportDialogVisible = false;
+                this.selectedReason = null;
+
+                this.alreadyReported = true;
+            },
+            error: (err) => {
+                console.error("Erreur lors du signalement", err);
+            }
+        });
+    }
+
+    protected readonly MENU_LABELS = MENU_LABELS;
 }

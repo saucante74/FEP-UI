@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from "../../../../../environments/environment";
+import { REPORT_REASONS } from "../../constants/report.constants";
 
 export interface ReportRequestDTO {
     reason: string;
@@ -23,11 +24,7 @@ export class ReportFormComponent {
         status: ''
     };
 
-    reasons = [
-        { name: 'FRAUD', code: 'FRAUD' },
-        { name: 'SPAM', code: 'SPAM' },
-        { name: 'HARASSMENT', code: 'HARASSMENT' }
-    ];
+    reasons = REPORT_REASONS;
 
     constructor(private http: HttpClient) {}
 

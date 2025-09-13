@@ -5,6 +5,7 @@ import { authGuard } from "../../service/api/auth.guard";
 import { LoanAdminListComponent } from "../../components/admin/loan/loan-list/loan-admin-list.component";
 import { RefundAdminListComponent } from "../../components/admin/refund/refund-list/refund-admin-list.component";
 import { ReportAdminListComponent } from "../../components/admin/report/report-list/report-admin-list.component";
+import { PendingUsersComponent } from "../../components/admin/pending-users/pending-users.component";
 
 const routes: Routes = [
     {
@@ -28,6 +29,12 @@ const routes: Routes = [
     {
         path: 'report/list',
         component: ReportAdminListComponent,
+        canActivate: [authGuard],
+        data: { roles: ['ADMIN'] }
+    },
+    {
+        path: 'pending-users',
+        component: PendingUsersComponent,
         canActivate: [authGuard],
         data: { roles: ['ADMIN'] }
     }

@@ -11,6 +11,7 @@ import { LoanMarketplaceComponent } from "../../components/loan/loan-marketplace
 import { LoanListComponent } from "../../components/loan/loan-list/loan-list.component";
 import { StatusLabelPipe } from "../../pipe/status-label.pipe";
 import { LoanApplyComponent } from "../../components/loan/loan-apply/loan-apply.component";
+import { DialogModule } from "primeng/dialog";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { LoanApplyComponent } from "../../components/loan/loan-apply/loan-apply.
         ButtonModule,
         DropdownModule,
         FormsModule,
-        InputTextModule
+        InputTextModule,
+        DialogModule
     ],
     exports: [
         StatusLabelPipe

@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserDashboardComponent } from "../../components/dashboard/user-dashboard.component";
 import { authGuard } from "../../service/api/auth.guard";
+import { statusGuard } from "../../service/api/status.guard";
 
 const routes: Routes = [
     {
         path: '',
         component: UserDashboardComponent,
-        canActivate: [authGuard],
+        canActivate: [authGuard, statusGuard],
         data: { roles: ['LENDER', 'BORROWER'] }
     },
 ];

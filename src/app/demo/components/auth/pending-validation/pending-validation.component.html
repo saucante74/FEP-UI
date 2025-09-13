@@ -1,0 +1,15 @@
+<div class="flex flex-column align-items-center justify-content-center min-h-screen text-center p-6">
+    <div class="card shadow-3 p-6 w-full md:w-6 lg:w-4">
+        <i class="pi pi-clock text-6xl text-orange-500 mb-4"></i>
+        <h2 class="mb-3 text-900">Validation en attente</h2>
+        <p class="text-600 mb-4">
+            Bonjour <strong>{{ userEmail }}</strong>,<br />
+            Votre compte a bien été créé, mais il est en attente de validation par un administrateur.
+        </p>
+        <p class="text-600 mb-4">
+            Vous recevrez un email dès que votre compte sera confirmé.
+        </p>
+
+        <button pButton type="button" label="Déconnexion" icon="pi pi-sign-out" (click)="logout()" class="p-button-danger w-full"></button>
+    </div>
+</div>

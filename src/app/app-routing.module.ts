@@ -12,7 +12,7 @@ import { authGuard } from "./demo/service/api/auth.guard";
                 component: AppLayoutComponent,
                 canActivate: [authGuard],
                 children: [
-                    { path: '', loadChildren: () => import('./demo/components/homepage/homepage.module').then(m => m.HomepageModule) },
+                    { path: '', loadChildren: () => import('./demo/modules/homepage/homepage.module').then(m => m.HomepageModule) },
                     { path: 'loan', loadChildren: () => import('./demo/modules/loan/loan.module').then(m => m.LoanModule) },
                     { path: 'refund', loadChildren: () => import('./demo/modules/refund/refund.module').then(m => m.RefundModule) },
                     { path: 'report', loadChildren: () => import('./demo/modules/report/report.module').then(m => m.ReportModule) },

@@ -3,7 +3,14 @@
     <div class="formgrid grid">
         <div class="field col-6">
             <label for="reasonFilter">Motif</label>
-            <input id="reasonFilter" type="text" pInputText [(ngModel)]="reasonFilter" />
+            <p-dropdown
+                [options]="reasons"
+                [(ngModel)]="reasonFilter"
+                optionLabel="label"
+                optionValue="code"
+                placeholder="Sélectionner un motif"
+                inputId="reasonFilter">
+            </p-dropdown>
         </div>
 
         <div class="field col-6">
@@ -11,7 +18,7 @@
             <p-dropdown
                 [options]="statuses"
                 [(ngModel)]="statusFilter"
-                optionLabel="name"
+                optionLabel="label"
                 optionValue="code"
                 placeholder="Sélectionner un statut"
                 inputId="statusFilter">
@@ -28,7 +35,7 @@
 </div>
 
 <div class="card">
-    <h2>Liste de mes signalements</h2>
+    <h2>Liste de mes signalements sur offre</h2>
     <p-table
         [value]="filteredReports"
         [paginator]="true"
@@ -42,7 +49,7 @@
 
         <ng-template pTemplate="header">
             <tr>
-                <th>ID</th>
+                <th>Référence du prêt</th>
                 <th>Motif</th>
                 <th>Date</th>
                 <th>Statut</th>
@@ -52,8 +59,8 @@
 
         <ng-template pTemplate="body" let-report>
             <tr>
-                <td>{{ report.id }}</td>
-                <td>{{ report.reason }}</td>
+                <td>{{ report.reportedLoanReference }}</td>
+                <td>{{ report.reason | reportReasonLabel }}</td>
                 <td>{{ report.reportDate | date:'dd/MM/yyyy' }}</td>
                 <td>
                     <p-tag [severity]="report.open ? 'success' : 'danger'" [value]="report.open ? 'Ouvert' : 'Fermé'"></p-tag>

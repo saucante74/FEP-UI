@@ -1,0 +1,20 @@
+export const MENU_LABELS = {
+    HOME: 'Accueil',
+    ADMIN: 'Administration',
+    DASHBOARD: 'Tableau de bord',
+    LOAN_LIST: 'Liste des prêts',
+    REFUND_LIST: 'Liste des remboursements',
+    REPORT_LIST: 'Liste des signalements',
+    PENDING_USERS: 'Demandes utilisateur',
+    PILOTAGE: 'Pilotage',
+    MY_LOANS: 'Mes prêts',
+    MY_REFUNDS: 'Mes remboursements',
+    MARKET: 'Marché',
+    FIND_LOAN: 'Trouver un prêt',
+    OFFER_LOAN: 'Proposer un prêt',
+    REPORTS: 'Signalements',
+    MY_REPORTS: 'Mes signalements',
+    PENDING_ACCOUNT: 'Compte en attente',
+    PENDING_VALIDATION: 'Validation en cours',
+    LOGOUT: 'Déconnexion'
+};

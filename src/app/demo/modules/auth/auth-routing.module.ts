@@ -28,6 +28,10 @@ import { RouterModule } from '@angular/router';
             loadChildren: () => import('./register/register.module').then(m => m.RegisterModule)
         },
         {
+            path: 'pending-validation',
+            loadChildren: () => import('./pending-validation/pending-validation.module').then(m => m.PendingValidationModule)
+        },
+        {
             path: '**',
             redirectTo: '/notfound'
         }

@@ -6,29 +6,31 @@ import { LoanMarketplaceComponent } from "../../components/loan/loan-marketplace
 import { authGuard } from "../../service/api/auth.guard";
 import { LoanListComponent } from "../../components/loan/loan-list/loan-list.component";
 import { LoanApplyComponent } from "../../components/loan/loan-apply/loan-apply.component";
+import { statusGuard } from "../../service/api/status.guard";
 
 
 const routes: Routes = [
     {
         path: 'request',
         component: LoanRequestComponent,
-        canActivate: [authGuard],
+        canActivate: [authGuard, statusGuard],
         data: { roles: ['LENDER', 'BORROWER'] }
     },
     {
         path: 'marketplace',
-        component: LoanMarketplaceComponent
+        component: LoanMarketplaceComponent,
+        canActivate: [statusGuard]
     },
     {
         path: 'list',
         component: LoanListComponent,
-        canActivate: [authGuard],
+        canActivate: [authGuard, statusGuard],
         data: { roles: ['LENDER', 'BORROWER'] }
     },
     {
         path: 'apply/:id',
         component: LoanApplyComponent,
-        canActivate: [authGuard],
+        canActivate: [authGuard, statusGuard],
         data: { roles: ['LENDER', 'BORROWER'] }
     },
 ];

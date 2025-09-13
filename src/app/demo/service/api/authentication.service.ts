@@ -15,6 +15,7 @@ export interface LoginResponse {
     lastName: string,
     email: string,
     role: string,
+    status: string,
 }
 
 @Injectable({
@@ -35,6 +36,7 @@ export class AuthenticationService {
                     lastName: response.lastName,
                     email: response.email,
                     role: response.role,
+                    status: response.status,
                 }));
             })
         );
@@ -77,6 +79,11 @@ export class AuthenticationService {
     }
     updatePassword(payload: { token: string; newPassword: string }) {
         return this.httpClient.post(`${environment.apiBaseUrl}/auth/reset-password`, payload);
+    }
+
+    getUserInfo() {
+        const user = localStorage.getItem('user');
+        return user ? JSON.parse(user) : null;
     }
 
     getUserRole(): string {

@@ -8,13 +8,60 @@
     <p><strong>Durée :</strong> {{ loan.durationInMonths }} mois</p>
 
     <p *ngIf="isAlreadySubscribed()" class="text-green-600 font-bold">
-        ✅ Vous avez déjà postulé à ce prêt. Vous serez informé lorsque le prêteur aura validé votre demande.
+        Vous avez déjà postulé à ce prêt. Vous serez informé lorsque le prêteur aura validé votre demande.
     </p>
 
-    <button *ngIf="!isAlreadySubscribed()"
-            pButton type="button" label="Postuler"
+    <p *ngIf="alreadyReported && !isAlreadySubscribed()" class="text-red-600 font-bold mt-3">
+        Vous avez signalé cette offre de prêt. Aucune actions n'est possible pour le moment.
+        Veuillez consulter vos signalements dans la rubrique
+        <a [routerLink]="['/report/list']" class="text-blue-600 underline hover:text-blue-800">
+            {{ MENU_LABELS.MY_REPORTS }}
+        </a>.
+    </p>
+
+
+    <div class="lg:col-4" *ngIf="!alreadyReported && !isAlreadySubscribed()">
+        <button
+            pButton
+            type="button"
+            label="Postuler"
             icon="pi pi-check"
-            class="p-button-label w-full mt-2"
+            class="p-button-success w-full mt-2"
             (click)="applyForLoan()">
-    </button>
+        </button>
+
+        <button
+            pButton
+            type="button"
+            label="Signaler"
+            icon="pi pi-flag"
+            class="p-button-danger w-full mt-2"
+            (click)="reportDialogVisible = true">
+        </button>
+    </div>
 </div>
+
+<p-dialog header="Signaler cette offre" [(visible)]="reportDialogVisible" [modal]="true" [style]="{width: '30vw'}">
+    <div class="p-fluid">
+        <div class="field">
+            <label for="reason">Motif du signalement</label>
+            <p-dropdown
+                [options]="reportReasons"
+                [(ngModel)]="selectedReason"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Choisir un motif"
+                inputId="reason"
+                appendTo="body">
+            </p-dropdown>
+        </div>
+    </div>
+
+    <p-footer>
+        <button pButton label="Annuler" icon="pi pi-times" class="p-button-secondary"
+                (click)="reportDialogVisible=false"></button>
+        <button pButton label="Confirmer" icon="pi pi-check" class="p-button-danger"
+                [disabled]="!selectedReason"
+                (click)="reportLoan()"></button>
+    </p-footer>
+</p-dialog>

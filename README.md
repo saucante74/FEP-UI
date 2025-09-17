@@ -31,6 +31,7 @@ ng serve
 
 4**Launch prod environment**
 ```bash
+docker compose down    
 docker compose -f docker-compose.prod.yml up --build
 ```
 

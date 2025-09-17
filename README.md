@@ -28,3 +28,13 @@ npm install
 ```bash
 ng serve
 ```
+
+4**Launch prod environment**
+```bash
+docker compose -f docker-compose.prod.yml up --build
+```
+
+5**Launch dev environment**
+```bash
+docker compose -f docker-compose.dev.yml up --build
+```

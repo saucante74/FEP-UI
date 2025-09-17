@@ -15,7 +15,6 @@ import { ReportAdminListComponent } from "../../components/admin/report/report-l
 import { PendingUsersComponent } from "../../components/admin/pending-users/pending-users.component";
 import { TagModule } from "primeng/tag";
 import { AppLayoutModule } from "../../../layout/app.layout.module";
-import { ReportReasonLabelPipe } from "../../pipe/report-reason-label.pipe";
 
 
 @NgModule({
@@ -25,10 +24,6 @@ import { ReportReasonLabelPipe } from "../../pipe/report-reason-label.pipe";
         RefundAdminListComponent,
         ReportAdminListComponent,
         PendingUsersComponent,
-        ReportReasonLabelPipe
-    ],
-    exports: [
-        ReportReasonLabelPipe
     ],
     imports: [
         CommonModule,

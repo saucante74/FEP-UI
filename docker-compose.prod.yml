@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  angular-app:
+    container_name: fep-ui-prod
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "4200:80"
+    restart: always

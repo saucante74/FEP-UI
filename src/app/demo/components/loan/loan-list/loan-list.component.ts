@@ -29,9 +29,10 @@ export class LoanListComponent implements OnInit {
 
     statuses = [
         { name: 'Tous', code: '' },
-        { name: 'En attente', code: 'PENDING' },
+        { name: 'En attente de validation', code: 'PENDING' },
         { name: 'En cours', code: 'IN_PROGRESS' },
-        { name: 'Terminé', code: 'COMPLETED' }
+        { name: 'Terminé', code: 'COMPLETED' },
+        { name: 'Rejeté', code: 'REJECTED' }
     ];
 
 
@@ -74,14 +75,6 @@ export class LoanListComponent implements OnInit {
     next() { this.first += this.rows; }
     prev() { this.first -= this.rows; }
     reset() { this.first = 0; }
-
-    isLastPage(): boolean {
-        return this.filteredLoans ? this.first >= (this.filteredLoans.length - this.rows) : true;
-    }
-
-    isFirstPage(): boolean {
-        return this.first === 0;
-    }
 
     pageChange(event: any) {
         this.first = event.first;

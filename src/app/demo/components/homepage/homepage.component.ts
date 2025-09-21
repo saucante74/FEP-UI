@@ -5,6 +5,7 @@ import { environment } from "../../../../environments/environment";
 import { UserDashboardStatsDTO } from "../../dtos/dashboard/user-dashboard-stats.dto";
 import { AuthenticationService } from "../../service/api/authentication.service";
 import { UserRole } from "../../dtos/user/user-role.enum";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-homepage',
@@ -14,9 +15,15 @@ export class HomepageComponent implements OnInit {
     stats!: AdminDashboardStatsDto|UserDashboardStatsDTO;
     role: string;
 
-    constructor(private http: HttpClient, private authService: AuthenticationService) {}
+    constructor(private http: HttpClient, private authService: AuthenticationService, private router: Router) {}
 
     ngOnInit() {
+      setTimeout(() => {
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate([this.router.url]);
+        });
+      }, 0);
+
         this.role = this.authService.getUserRole();
 
         if (UserRole.ADMIN === this.role) {

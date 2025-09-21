@@ -56,12 +56,9 @@
                 <td>{{ refund.loanReference }}</td>
                 <td>{{ refund.amount | currency:'EUR' }}</td>
                 <td>{{ refund.refundDate | date:'dd/MM/yyyy' }}</td>
-                <td>{{ refund.status }}</td>
+                <td>{{ refund.status | refundStatusLabel }}</td>
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="paginatorleft">
-            <p-button type="button" icon="pi pi-plus" text></p-button>
-        </ng-template>
     </p-table>
 </div>

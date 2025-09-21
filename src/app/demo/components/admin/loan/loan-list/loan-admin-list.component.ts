@@ -11,7 +11,7 @@ export interface LoanResponseDTO {
 }
 
 @Component({
-    selector: 'app-admin-loan-list',
+    selector: 'app-loan-list',
     templateUrl: './loan-admin-list.component.html',
 })
 export class LoanAdminListComponent implements OnInit {
@@ -26,10 +26,10 @@ export class LoanAdminListComponent implements OnInit {
     statusFilter: string = '';
 
     statuses = [
-        { name: 'TOUS', code: '' },
-        { name: 'PENDING', code: 'PENDING' },
-        { name: 'IN_PROGRESS', code: 'IN_PROGRESS' },
-        { name: 'COMPLETED', code: 'COMPLETED' }
+      { name: 'Tous', code: '' },
+      { name: 'En attente', code: 'PENDING' },
+      { name: 'En cours', code: 'IN_PROGRESS' },
+      { name: 'Terminé', code: 'COMPLETED' }
     ];
 
     constructor(private http: HttpClient) {}

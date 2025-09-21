@@ -25,11 +25,14 @@ export class RefundAdminListComponent implements OnInit {
     statusFilter: string = '';
 
     statuses = [
-        { name: 'TOUS', code: '' },
-        { name: 'PENDING', code: 'PENDING' },
-        { name: 'APPROVED', code: 'APPROVED' },
-        { name: 'REJECTED', code: 'REJECTED' },
-        { name: 'LATE', code: 'LATE' }
+      { name: 'Tous', code: '' },
+      { name: 'En attente', code: 'PENDING' },
+      { name: 'Soumis', code: 'SUBMITTED' },
+      { name: 'Approuvé', code: 'APPROVED' },
+      { name: 'Terminé', code: 'COMPLETED' },
+      { name: 'Annulé', code: 'CANCELLED' },
+      { name: 'Payé', code: 'PAID' },
+      { name: 'En retard', code: 'LATE' }
     ];
 
     constructor(private http: HttpClient) {}

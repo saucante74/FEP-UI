@@ -6,9 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class StatusLabelPipe implements PipeTransform {
 
     private statusMap: { [key: string]: string } = {
-        PENDING: 'En attente',
+        PENDING: 'En attente de validation',
         IN_PROGRESS: 'En cours',
-        COMPLETED: 'Terminé'
+        COMPLETED: 'Terminé',
+        REJECTED: 'Rejeté',
     };
 
     transform(value: string): string {

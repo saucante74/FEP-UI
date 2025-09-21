@@ -27,16 +27,9 @@ export class AppMenuComponent implements OnInit {
 
         if (UserRole.ADMIN === role) {
             this.model.push({
-                label: MENU_LABELS.HOME,
-                items: [
-                    { label: MENU_LABELS.HOME, icon: 'pi pi-fw pi-home', routerLink: ['/'] },
-                ]
-            });
-
-            this.model.push({
                 label: MENU_LABELS.ADMIN,
                 items: [
-                    { label: MENU_LABELS.DASHBOARD, icon: 'pi pi-th-large', routerLink: ['/admin/dashboard'] },
+                    { label: MENU_LABELS.DASHBOARD, icon: 'pi pi-th-large', routerLink: ['/admin/dashboard/view'] },
                     { label: MENU_LABELS.LOAN_LIST, icon: 'pi pi-bars', routerLink: ['/admin/loan/list'] },
                     { label: MENU_LABELS.REFUND_LIST, icon: 'pi pi-refresh', routerLink: ['/admin/refund/list'] },
                     { label: MENU_LABELS.REPORT_LIST, icon: 'pi pi-ban', routerLink: ['/admin/report/list'] },

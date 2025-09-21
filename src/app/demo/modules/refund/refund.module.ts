@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RefundRoutingModule } from './refund-routing.module';
-import { RefundAdminListComponent } from "../../components/admin/refund/refund-list/refund-admin-list.component";
 import { ButtonModule } from "primeng/button";
 import { TableModule } from "primeng/table";
 import { RefundFormComponent } from "../../components/refund/refund-form/refund-form.component";

@@ -3,5 +3,5 @@ export enum LoanStatusEnum {
   VALIDATED = 'VALIDATED',
   REJECTED = 'REJECTED',
   IN_PROGRESS = 'IN_PROGRESS',
-  REPAID = 'REPAID'
+  APPLIED = 'APPLIED'
 }

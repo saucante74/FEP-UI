@@ -35,4 +35,5 @@ export class HomepageComponent implements OnInit {
         }
     }
 
+    protected readonly UserRole = UserRole;
 }

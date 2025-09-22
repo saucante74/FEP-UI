@@ -1,5 +1,5 @@
 <div class="card p-fluid">
-    <h2>Créer un remboursement</h2>
+    <h2>Soumettre un remboursement</h2>
 
     <div class="formgrid grid">
         <div class="field col-6">
@@ -15,18 +15,6 @@
         <div class="field col-6">
             <label for="refundDate">Date de remboursement</label>
             <input id="refundDate" type="date" pInputText [(ngModel)]="refund.refundDate" />
-        </div>
-
-        <div class="field col-6">
-            <label for="status">Statut</label>
-            <p-dropdown
-                [options]="statuses"
-                [(ngModel)]="refund.status"
-                optionLabel="name"
-                optionValue="code"
-                placeholder="Sélectionner un statut"
-                inputId="status"
-            ></p-dropdown>
         </div>
     </div>
 

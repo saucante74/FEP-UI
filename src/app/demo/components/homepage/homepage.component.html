@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <div class="col-12 lg:col-6" *ngIf="stats">
+        <div class="col-12 lg:col-6" *ngIf="role !== UserRole.ADMIN">
             <div class="card">
                 <h5>Remboursements à venir</h5>
                 <ul class="list-none m-0 p-0">
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div class="col-12 lg:col-6" *ngIf="stats">
+        <div class="col-12 lg:col-6" *ngIf="role !== UserRole.ADMIN">
             <div class="card">
                 <h5>Derniers impayés</h5>
                 <ul class="list-none m-0 p-0">

@@ -16,6 +16,7 @@ export interface LoginResponse {
     email: string,
     role: string,
     status: string,
+    id: number
 }
 
 @Injectable({
@@ -37,6 +38,7 @@ export class AuthenticationService {
                     email: response.email,
                     role: response.role,
                     status: response.status,
+                    id: response.id
                 }));
             })
         );

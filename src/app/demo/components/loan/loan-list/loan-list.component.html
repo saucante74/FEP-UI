@@ -70,7 +70,7 @@
                     {{ loan.lender.lastName }} {{ loan.lender.firstName }}
                 </td>
                 <td *ngIf="userRole === 'LENDER'">
-                    {{ loan.borrower.lastName }} {{ loan.borrower.firstName }}
+                    {{ loan.borrower?.lastName }} {{ loan.borrower?.firstName }}
                 </td>
                 <td>
                     <button

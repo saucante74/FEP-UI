@@ -8,6 +8,7 @@ import { AuthenticationService } from "../../../service/api/authentication.servi
 import { ReportResponseDTO } from "../../../dtos/report/report.response.dto";
 import { MENU_LABELS } from "../../constants/menu.constants";
 import { RefundResponseDTO } from "../../../dtos/refund/refund-response.dto";
+import { LoanStatusEnum } from "../../../dtos/loan/loan-status.enum";
 
 @Component({
     selector: 'app-loan-detail',
@@ -19,6 +20,7 @@ export class LoanDetailComponent implements OnInit {
     alreadyReported: boolean = false;
     refunds: RefundResponseDTO[] = [];
 
+    currentUser: any;
     reportDialogVisible: boolean = false;
     reportReasons = [
         { label: 'Fraude', value: 'FRAUD' },
@@ -37,8 +39,8 @@ export class LoanDetailComponent implements OnInit {
 
     ngOnInit() {
         const loanId = this.route.snapshot.paramMap.get('id');
-        this.currentUserEmail = this.authenticationService.getUserInfo().email;
-        console.log(this.currentUserEmail)
+        this.currentUser = this.authenticationService.getUserInfo();
+        this.currentUserEmail = this.currentUser.email;
 
         this.http.get<LoanResponseDTO>(`${environment.apiBaseUrl}/loans/${loanId}`)
             .subscribe(data => {
@@ -49,29 +51,33 @@ export class LoanDetailComponent implements OnInit {
                         this.refunds = refunds;
                     });
 
-                this.http.get<ReportResponseDTO[]>(`${environment.apiBaseUrl}/reports/user`).subscribe(reports => {
-                    this.alreadyReported = reports.some(r =>
-                        r.reportedLoanReference === this.loan?.reference && r.reporterEmail === this.currentUserEmail
-                    );
-                });
+                this.http.get<ReportResponseDTO[]>(`${environment.apiBaseUrl}/reports/user`)
+                    .subscribe(reports => {
+                        this.alreadyReported = reports.some(r =>
+                            r.reportedLoanReference === this.loan?.reference && r.reporterEmail === this.currentUserEmail
+                        );
+                    });
             });
     }
 
-
     applyForLoan() {
         if (!this.loan) return;
+        const payload = { status: LoanStatusEnum.IN_PROGRESS };
 
         this.http.patch<LoanResponseDTO>(
             `${environment.apiBaseUrl}/loans/${this.loan.id}`,
-            {}
+            payload
         ).subscribe(updatedLoan => {
             this.loan = updatedLoan;
         });
     }
 
     isAlreadySubscribed(): boolean {
-        const userInfo = this.layoutService.getUserInfo();
-        return this.loan?.borrower?.email === userInfo.email;
+        return this.loan?.borrower?.email === this.currentUserEmail;
+    }
+
+    canValidateBorrower(): boolean {
+        return this.loan?.borrower?.email !== this.currentUserEmail;
     }
 
     showReportDialog() {
@@ -92,7 +98,6 @@ export class LoanDetailComponent implements OnInit {
                 alert("Le prêt a bien été signalé. Merci pour votre vigilance !");
                 this.reportDialogVisible = false;
                 this.selectedReason = null;
-
                 this.alreadyReported = true;
             },
             error: (err) => {

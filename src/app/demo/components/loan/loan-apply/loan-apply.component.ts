@@ -7,6 +7,9 @@ import { LayoutService } from "../../../../layout/service/app.layout.service";
 import { AuthenticationService } from "../../../service/api/authentication.service";
 import { ReportResponseDTO } from "../../../dtos/report/report.response.dto";
 import { MENU_LABELS } from "../../constants/menu.constants";
+import { UserStatus } from "../../../dtos/user/user-status.enum";
+import { RefundStatus } from "../../../dtos/refund/refund-status.enum";
+import { LoanStatusEnum } from "../../../dtos/loan/loan-status.enum";
 
 @Component({
     selector: 'app-loan-apply',
@@ -54,9 +57,11 @@ export class LoanApplyComponent implements OnInit {
     applyForLoan() {
         if (!this.loan) return;
 
+        const payload = { status: LoanStatusEnum.APPLIED, borrowerId: this.authenticationService.getUserInfo().id };
+
         this.http.patch<LoanResponseDTO>(
             `${environment.apiBaseUrl}/loans/${this.loan.id}`,
-            {}
+            payload
         ).subscribe(updatedLoan => {
             this.loan = updatedLoan;
         });

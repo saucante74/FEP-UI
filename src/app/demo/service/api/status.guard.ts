@@ -8,8 +8,13 @@ export const statusGuard = () => {
     const router = inject(Router);
 
     const user = authService.getUserInfo();
-    if (UserStatus.VALIDATED !== user?.status) {
+    if (UserStatus.PENDING_VALIDATION == user?.status) {
         router.navigate(['/auth/pending-validation']);
+        return false;
+    }
+
+    if (UserStatus.REJECTED == user?.status) {
+        router.navigate(['/auth/reject-registration']);
         return false;
     }
 

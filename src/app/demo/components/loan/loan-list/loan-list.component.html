@@ -55,6 +55,7 @@
                 <th>Statut</th>
                 <th *ngIf="userRole === 'BORROWER'">Prêteur</th>
                 <th *ngIf="userRole === 'LENDER'">Emprunteur</th>
+                <th>Action</th>
             </tr>
         </ng-template>
 
@@ -70,6 +71,16 @@
                 </td>
                 <td *ngIf="userRole === 'LENDER'">
                     {{ loan.borrower.lastName }} {{ loan.borrower.firstName }}
+                </td>
+                <td>
+                    <button
+                        pButton
+                        type="button"
+                        label="Voir détails"
+                        icon="pi pi-search"
+                        class="p-button-info"
+                        [routerLink]="['/loan/detail', loan.id]">
+                    </button>
                 </td>
             </tr>
         </ng-template>

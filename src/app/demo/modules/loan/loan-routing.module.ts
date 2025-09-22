@@ -6,6 +6,7 @@ import { authGuard } from "../../service/api/auth.guard";
 import { LoanListComponent } from "../../components/loan/loan-list/loan-list.component";
 import { LoanApplyComponent } from "../../components/loan/loan-apply/loan-apply.component";
 import { statusGuard } from "../../service/api/status.guard";
+import { LoanDetailComponent } from "../../components/loan/loan-detail/loan-detail.component";
 
 
 const routes: Routes = [
@@ -29,6 +30,12 @@ const routes: Routes = [
     {
         path: 'apply/:id',
         component: LoanApplyComponent,
+        canActivate: [authGuard, statusGuard],
+        data: { roles: ['LENDER', 'BORROWER'] }
+    },
+    {
+        path: 'detail/:id',
+        component: LoanDetailComponent,
         canActivate: [authGuard, statusGuard],
         data: { roles: ['LENDER', 'BORROWER'] }
     },

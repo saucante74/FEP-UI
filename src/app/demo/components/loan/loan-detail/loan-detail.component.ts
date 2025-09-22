@@ -7,15 +7,17 @@ import { LayoutService } from "../../../../layout/service/app.layout.service";
 import { AuthenticationService } from "../../../service/api/authentication.service";
 import { ReportResponseDTO } from "../../../dtos/report/report.response.dto";
 import { MENU_LABELS } from "../../constants/menu.constants";
+import { RefundResponseDTO } from "../../../dtos/refund/refund-response.dto";
 
 @Component({
-    selector: 'app-loan-apply',
-    templateUrl: './loan-apply.component.html'
+    selector: 'app-loan-detail',
+    templateUrl: './loan-detail.component.html'
 })
-export class LoanApplyComponent implements OnInit {
+export class LoanDetailComponent implements OnInit {
     loan?: LoanResponseDTO;
     currentUserEmail?: string;
     alreadyReported: boolean = false;
+    refunds: RefundResponseDTO[] = [];
 
     reportDialogVisible: boolean = false;
     reportReasons = [
@@ -41,6 +43,11 @@ export class LoanApplyComponent implements OnInit {
         this.http.get<LoanResponseDTO>(`${environment.apiBaseUrl}/loans/${loanId}`)
             .subscribe(data => {
                 this.loan = data;
+
+                this.http.get<RefundResponseDTO[]>(`${environment.apiBaseUrl}/refunds/loan/${loanId}`)
+                    .subscribe(refunds => {
+                        this.refunds = refunds;
+                    });
 
                 this.http.get<ReportResponseDTO[]>(`${environment.apiBaseUrl}/reports/user`).subscribe(reports => {
                     this.alreadyReported = reports.some(r =>

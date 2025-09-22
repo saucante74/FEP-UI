@@ -4,6 +4,7 @@ import { environment } from "../../../../../environments/environment";
 import { LayoutService } from "../../../../layout/service/app.layout.service";
 
 export interface LoanResponseDTO {
+    id: number;
     amount: number;
     interestRate: number;
     durationInMonths: number;
@@ -46,6 +47,7 @@ export class LoanListComponent implements OnInit {
         this.http.get<LoanResponseDTO[]>(`${environment.apiBaseUrl}/loans/user`).subscribe({
             next: (data) => {
                 this.loans = data;
+                console.log(data)
                 this.filteredLoans = data;
             },
             error: (err) => {

@@ -12,6 +12,8 @@ import { LoanListComponent } from "../../components/loan/loan-list/loan-list.com
 import { StatusLabelPipe } from "../../pipe/status-label.pipe";
 import { LoanApplyComponent } from "../../components/loan/loan-apply/loan-apply.component";
 import { DialogModule } from "primeng/dialog";
+import { LoanDetailComponent } from "../../components/loan/loan-detail/loan-detail.component";
+import { TagModule } from "primeng/tag";
 
 
 @NgModule({
@@ -20,6 +22,7 @@ import { DialogModule } from "primeng/dialog";
       LoanMarketplaceComponent,
       LoanListComponent,
       LoanApplyComponent,
+      LoanDetailComponent,
       StatusLabelPipe,
   ],
     imports: [
@@ -30,7 +33,8 @@ import { DialogModule } from "primeng/dialog";
         DropdownModule,
         FormsModule,
         InputTextModule,
-        DialogModule
+        DialogModule,
+        TagModule
     ],
     exports: [
         StatusLabelPipe

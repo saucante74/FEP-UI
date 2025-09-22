@@ -1,0 +1,93 @@
+<div *ngIf="loan" class="card">
+    <h2>Détail du prêt</h2>
+
+    <p><strong>Prêteur :</strong> {{ loan.lender.firstName }} {{ loan.lender.lastName }}</p>
+    <p><strong>Email :</strong> {{ loan.lender.email }}</p>
+    <p><strong>Montant :</strong> {{ loan.amount | currency:'EUR' }}</p>
+    <p><strong>Taux d'intérêt :</strong> {{ loan.interestRate }}%</p>
+    <p><strong>Durée :</strong> {{ loan.durationInMonths }} mois</p>
+
+    <p *ngIf="alreadyReported && !isAlreadySubscribed()" class="text-red-600 font-bold mt-3">
+        Vous avez signalé cette offre de prêt. Aucune actions n'est possible pour le moment.
+        Veuillez consulter vos signalements dans la rubrique
+        <a [routerLink]="['/report/list']" class="text-blue-600 underline hover:text-blue-800">
+            {{ MENU_LABELS.MY_REPORTS }}
+        </a>.
+    </p>
+
+
+    <div class="lg:col-4" *ngIf="!alreadyReported && !isAlreadySubscribed()">
+        <button
+            pButton
+            type="button"
+            label="Signaler"
+            icon="pi pi-flag"
+            class="p-button-danger w-full mt-2"
+            (click)="reportDialogVisible = true">
+        </button>
+    </div>
+</div>
+
+<p-dialog header="Signaler cette offre" [(visible)]="reportDialogVisible" [modal]="true" [style]="{width: '30vw'}">
+    <div class="p-fluid">
+        <div class="field">
+            <label for="reason">Motif du signalement</label>
+            <p-dropdown
+                [options]="reportReasons"
+                [(ngModel)]="selectedReason"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Choisir un motif"
+                inputId="reason"
+                appendTo="body">
+            </p-dropdown>
+        </div>
+    </div>
+
+    <p-footer>
+        <button pButton label="Annuler" icon="pi pi-times" class="p-button-secondary"
+                (click)="reportDialogVisible=false"></button>
+        <button pButton label="Confirmer" icon="pi pi-check" class="p-button-danger"
+                [disabled]="!selectedReason"
+                (click)="reportLoan()"></button>
+    </p-footer>
+</p-dialog>
+
+<div *ngIf="refunds" class="card">
+    <div class="mt-5">
+        <h3>Calendrier de remboursement</h3>
+
+        <p-table
+            [value]="refunds"
+            [paginator]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5,10,20]"
+            currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} remboursements"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{'min-width': '50rem'}"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Date</th>
+                    <th>Montant</th>
+                    <th>Statut</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-refund>
+                <tr>
+                    <td>{{ refund.refundDate | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ refund.amount | currency:'EUR' }}</td>
+                    <td>
+                        <p-tag [value]="refund.status"
+                               [severity]="refund.status === 'PAID' ? 'success'
+                                : refund.status === 'PENDING' ? 'warning'
+                                : refund.status === 'CANCELLED' ? 'danger'
+                                : 'info'">
+                        </p-tag>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

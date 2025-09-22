@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoanResponseDTO } from '../../../dtos/loan/loan-response.dto';
 import { environment } from "../../../../../environments/environment";
+import { LoanStatusEnum } from "../../../dtos/loan/loan-status.enum";
 
 @Component({
     selector: 'app-loan-marketplace',
@@ -14,7 +15,8 @@ export class LoanMarketplaceComponent implements OnInit {
 
     ngOnInit() {
         this.http.get<LoanResponseDTO[]>(`${environment.apiBaseUrl}/loans`).subscribe(data => {
-            this.loans = data.filter(l => l.status === 'PENDING');
+            this.loans = data.filter(l => l.status === LoanStatusEnum.VALIDATED);
+            console.log(this.loans)
         });
     }
 

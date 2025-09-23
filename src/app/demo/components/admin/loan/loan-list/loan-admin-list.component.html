@@ -60,7 +60,7 @@
                 <td>{{ loan.amount | currency:'EUR' }}</td>
                 <td>{{ loan.interestRate }} %</td>
                 <td>{{ loan.durationInMonths }}</td>
-                <td>{{ loan.status | statusLabel }}</td>
+                <td>{{ loan.status | LoanStatusLabelPipe }}</td>
                 <td>{{ loan.lender.lastName }} {{ loan.borrower.firstName }}</td>
                 <td>{{ loan.borrower.lastName }} {{ loan.borrower.firstName }}</td>
             </tr>

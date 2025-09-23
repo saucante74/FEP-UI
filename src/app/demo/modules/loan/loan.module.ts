@@ -9,22 +9,23 @@ import { FormsModule } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
 import { LoanMarketplaceComponent } from "../../components/loan/loan-marketplace/loan-marketplace.component";
 import { LoanListComponent } from "../../components/loan/loan-list/loan-list.component";
-import { StatusLabelPipe } from "../../pipe/status-label.pipe";
 import { LoanApplyComponent } from "../../components/loan/loan-apply/loan-apply.component";
 import { DialogModule } from "primeng/dialog";
 import { LoanDetailComponent } from "../../components/loan/loan-detail/loan-detail.component";
 import { TagModule } from "primeng/tag";
+import { LoanStatusLabelPipe } from "../../pipe/loan-status-label.pipe";
+import { RefundModule } from "../refund/refund.module";
 
 
 @NgModule({
-  declarations: [
-      LoanRequestComponent,
-      LoanMarketplaceComponent,
-      LoanListComponent,
-      LoanApplyComponent,
-      LoanDetailComponent,
-      StatusLabelPipe,
-  ],
+    declarations: [
+        LoanRequestComponent,
+        LoanMarketplaceComponent,
+        LoanListComponent,
+        LoanApplyComponent,
+        LoanDetailComponent,
+        LoanStatusLabelPipe,
+    ],
     imports: [
         CommonModule,
         LoanRoutingModule,
@@ -34,10 +35,10 @@ import { TagModule } from "primeng/tag";
         FormsModule,
         InputTextModule,
         DialogModule,
-        TagModule
+        TagModule,
+        RefundModule
     ],
     exports: [
-        StatusLabelPipe
     ]
 
 })

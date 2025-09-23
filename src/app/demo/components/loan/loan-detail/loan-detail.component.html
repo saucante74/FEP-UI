@@ -6,6 +6,7 @@
     <p><strong>Montant :</strong> {{ loan.amount | currency:'EUR' }}</p>
     <p><strong>Taux d'intérêt :</strong> {{ loan.interestRate }}%</p>
     <p><strong>Durée :</strong> {{ loan.durationInMonths }} mois</p>
+    <p><strong>Statut :</strong> {{ loan.status | loanStatusLabel }}</p>
 
     <p *ngIf="alreadyReported && !isAlreadySubscribed()" class="text-red-600 font-bold mt-3">
         Vous avez signalé cette offre de prêt. Aucune actions n'est possible pour le moment.
@@ -28,7 +29,7 @@
         </button>
 
         <button
-            *ngIf="canValidateBorrower()"
+            *ngIf="canValidateBorrower() && loan?.borrower && loan?.status === LoanStatusEnum.APPLIED"
             pButton
             type="button"
             label="Valider l'emprunteur"
@@ -83,6 +84,7 @@
                     <th>Date</th>
                     <th>Montant</th>
                     <th>Statut</th>
+                    <th>Actions</th>
                 </tr>
             </ng-template>
 
@@ -91,13 +93,36 @@
                     <td>{{ refund.refundDate | date:'dd/MM/yyyy' }}</td>
                     <td>{{ refund.amount | currency:'EUR' }}</td>
                     <td>
-                        <p-tag [value]="refund.status"
-                               [severity]="refund.status === 'PAID' ? 'success'
-                                : refund.status === 'PENDING' ? 'warning'
-                                : refund.status === 'CANCELLED' ? 'danger'
-                                : 'info'">
+                        <p-tag [value]="refund.status | refundStatusLabel"
+                               [severity]="refund.status === RefundStatus.SUBMITTED ? 'success'
+              : refund.status === RefundStatus.PENDING ? 'warning'
+              : refund.status === RefundStatus.CANCELLED ? 'danger'
+              : 'info'">
                         </p-tag>
                     </td>
+                    <td>
+                        <button
+                            *ngIf="refund.status === RefundStatus.PENDING && currentUser.email === loan?.borrower?.email"
+                            pButton
+                            type="button"
+                            label="Soumettre le remboursement"
+                            icon="pi pi-check"
+                            class="p-button-success"
+                            [disabled]="refund !== getNextRefundToValidate()"
+                            (click)="validateRefund(refund)">
+                        </button>
+                        <button
+                            *ngIf="refund.status === RefundStatus.SUBMITTED && currentUser.email === loan?.lender?.email"
+                            pButton
+                            type="button"
+                            label="Confirmer le remboursement"
+                            icon="pi pi-check"
+                            class="p-button-info"
+                            [disabled]="refund !== getNextRefundToConfirm()"
+                            (click)="confirmRefund(refund)">
+                        </button>
+                    </td>
+
                 </tr>
             </ng-template>
         </p-table>

@@ -17,7 +17,7 @@ import { ReportReasonLabelPipe } from "./demo/pipe/report-reason-label.pipe";
         ReportReasonLabelPipe
     ],
     exports: [
-      ReportReasonLabelPipe
+        ReportReasonLabelPipe
     ],
     imports: [
         AppRoutingModule,

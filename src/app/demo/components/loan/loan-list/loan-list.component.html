@@ -65,7 +65,7 @@
                 <td>{{ loan.amount | currency:'EUR' }}</td>
                 <td>{{ loan.interestRate }} %</td>
                 <td>{{ loan.durationInMonths }}</td>
-                <td>{{ loan.status | statusLabel }}</td>
+                <td>{{ loan.status | loanStatusLabel }}</td>
                 <td *ngIf="userRole === 'BORROWER'">
                     {{ loan.lender.lastName }} {{ loan.lender.firstName }}
                 </td>

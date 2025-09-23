@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from "../../../../../environments/environment";
 import { LayoutService } from "../../../../layout/service/app.layout.service";
+import { LOAN_STATUSES } from "../../constants/loan.constants";
+import { LoanStatusLabelPipe } from "../../../pipe/loan-status-label.pipe";
 
 export interface LoanResponseDTO {
     id: number;
@@ -27,16 +29,7 @@ export class LoanListComponent implements OnInit {
     interestRateFilter: number | null = null;
     durationFilter: number | null = null;
     statusFilter: string = '';
-
-    statuses = [
-        { name: 'Tous', code: '' },
-        { name: 'En attente de validation', code: 'PENDING' },
-        { name: 'En cours', code: 'IN_PROGRESS' },
-        { name: 'Terminé', code: 'COMPLETED' },
-        { name: 'Rejeté', code: 'REJECTED' }
-    ];
-
-
+    statuses = LOAN_STATUSES;
     userRole: string = '';
 
     constructor(private http: HttpClient, private layoutService: LayoutService) {}
@@ -82,4 +75,6 @@ export class LoanListComponent implements OnInit {
         this.first = event.first;
         this.rows = event.rows;
     }
+
+    protected readonly LoanStatusLabelPipe = LoanStatusLabelPipe;
 }

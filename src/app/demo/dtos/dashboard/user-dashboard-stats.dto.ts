@@ -1,7 +1,9 @@
 export interface UserDashboardStatsDTO {
     totalAmount: number;
+    totalRealAmount: number;
     amountLabel: string;
     totalInterests: number;
+    realInterests: number;
     interestsLabel: string;
     activeLoansAmount: number;
     totalLoansCount: number;

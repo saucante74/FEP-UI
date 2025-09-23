@@ -14,31 +14,33 @@
         </div>
     </div>
 
-    <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card mb-0">
-            <div class="flex justify-content-between mb-3">
-                <div>
-                    <span class="block text-500 font-medium mb-3">{{ stats.interestsLabel }}</span>
-                    <div class="text-900 font-medium text-xl">{{ stats.totalInterests | currency:'USD' }}</div>
-                </div>
-                <div class="flex align-items-center justify-content-center bg-green-100 border-round"
-                     [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                    <i class="pi pi-dollar text-green-500 text-xl"></i>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="col-12 lg:col-6 xl:col-3">
         <div class="card mb-0">
             <div class="flex justify-content-between mb-3">
                 <div>
-                    <span class="block text-500 font-medium mb-3">Remboursements faits</span>
-                    <div class="text-900 font-medium text-xl">{{ stats.totalRefundsMade }}</div>
+                    <span class="block text-500 font-medium mb-3">Total remboursé</span>
+                    <div class="text-900 font-medium text-xl">{{ stats.totalRealAmount | currency: 'USD' }}</div>
                 </div>
                 <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
                      [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                     <i class="pi pi-check text-blue-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Total prêts</span>
+                    <div class="text-900 font-medium text-xl">{{ stats.totalLoansCount }}</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-green-100 border-round"
+                     [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-dollar text-green-500 text-xl"></i>
                 </div>
             </div>
         </div>
@@ -59,7 +61,7 @@
         </div>
     </div>
 
-    <div class="col-9">
+    <div class="col-9" *ngIf="stats.upcomingRefunds && stats.upcomingRefunds.length > 0">
         <div class="card">
             <h5>Remboursements à venir</h5>
             <ul class="list-none m-0 p-0">
@@ -74,18 +76,18 @@
         </div>
     </div>
 
-    <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card mb-0">
-            <div class="flex justify-content-between mb-3">
-                <div>
-                    <span class="block text-500 font-medium mb-3">Remboursements en retard</span>
-                    <div class="text-900 font-medium text-xl">{{ stats.lateRefundsCount }}</div>
-                </div>
-                <div class="flex align-items-center justify-content-center bg-red-100 border-round"
-                     [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                    <i class="pi pi-exclamation-triangle text-red-500 text-xl"></i>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--    <div class="col-12 lg:col-6 xl:col-3">-->
+<!--        <div class="card mb-0">-->
+<!--            <div class="flex justify-content-between mb-3">-->
+<!--                <div>-->
+<!--                    <span class="block text-500 font-medium mb-3">Remboursements en retard</span>-->
+<!--                    <div class="text-900 font-medium text-xl">{{ stats.lateRefundsCount }}</div>-->
+<!--                </div>-->
+<!--                <div class="flex align-items-center justify-content-center bg-red-100 border-round"-->
+<!--                     [ngStyle]="{width: '2.5rem', height: '2.5rem'}">-->
+<!--                    <i class="pi pi-exclamation-triangle text-red-500 text-xl"></i>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>

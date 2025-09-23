@@ -15,6 +15,7 @@ export class UserDashboardComponent implements OnInit {
     ngOnInit() {
         this.http.get<UserDashboardStatsDTO>(`${environment.apiBaseUrl}/user/dashboard`).subscribe(data => {
             this.stats = data;
+            console.log(data)
         });
     }
 }

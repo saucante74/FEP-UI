@@ -3,7 +3,7 @@
 
     <p><strong>Prêteur :</strong> {{ loan.lender.firstName }} {{ loan.lender.lastName }}</p>
     <p><strong>Email :</strong> {{ loan.lender.email }}</p>
-    <p><strong>Montant :</strong> {{ loan.amount | currency:'EUR' }}</p>
+    <p><strong>Montant emprunté:</strong> {{ loan.amount | currency:'EUR' }}</p>
     <p><strong>Taux d'intérêt :</strong> {{ loan.interestRate }}%</p>
     <p><strong>Durée :</strong> {{ loan.durationInMonths }} mois</p>
     <p><strong>Statut :</strong> {{ loan.status | loanStatusLabel }}</p>

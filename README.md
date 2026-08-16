@@ -1,30 +1,35 @@
-# Frontend – FEP: Financement entre particuliers
+# FEP-UI
+
+> **Frontend (Angular) for the Peer-to-Peer Financing System (FEP).**
+
+### Key Features
+* **Loan Management:** Creation, tracking, and repayment of peer-to-peer loans
+* **User Dashboard:** Synthetic overview of activity and finances
+* **Reporting:** Generation of activity and repayment reports
+* **Admin Back-Office:** Management of users and transactions
+* **Authentication:** Login, registration, password management, and access control
+
 ---
 
-## Tools
-- **Angular 17** (`--no-standalone`)
-- **TypeScript**
-- **PrimeNG** + **Angular Material**
-- **RxJS**
-- **HTML5 / SCSS**
-- **REST API** via `HttpClient`
+### Architecture & Technical Choices
+* **Modular Angular 17:** Domain-driven breakdown (`auth`, `loan`, `refund`, `report`, `dashboard`, `admin`)
+* **PrimeNG + Angular Material:** Consistent UI with out-of-the-box components
+* **REST API:** Communication with the backend via `HttpClient`, environment-configurable URL
+* **Multi-Stage Docker Build:** Lightweight production image served by Nginx
 
 ---
 
-## ⚙️ Installation
+### Quick Start
 
-1. **Clone project**
-```bash
-git clone https://gitlab.com/ton-compte/loan-refund-frontend.git
-cd loan-refund-frontend
-```
+#### Prerequisites
+* Docker & Docker Compose
+* *(Optional) Node.js 20+*
 
-2. **Install dependencies**
+#### Running with Docker
 ```bash
-npm install
-```
+# Clone the repository
+git clone 
+cd FEP-UI
 
-3. **Install dependencies**
-```bash
-ng serve
-```
+# Run the application
+docker compose up -d --build

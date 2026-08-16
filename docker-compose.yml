@@ -1,0 +1,9 @@
+services:
+  fep-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fep-ui
+    ports:
+      - "8080:80"
+    restart: unless-stopped

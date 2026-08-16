@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         this.primengConfig.ripple = true;
 
-        const theme = this.layoutService.loadThemeFromLocalStorage();
+        const theme = this.layoutService.loadThemeFromLocalStorage() || this.layoutService._config.theme;
 
         const config: AppConfig = {
             ripple: RIPPLE,

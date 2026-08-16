@@ -39,4 +39,9 @@ testem.log
 Thumbs.db
 
 .env
-./src/environments/config.ts
+.env.local
+*.pem
+*.key
+*.p12
+target/
+src/environments/config.ts

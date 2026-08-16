@@ -28,8 +28,15 @@
 #### Running with Docker
 ```bash
 # Clone the repository
-git clone 
+git clone <REPO_URL>
 cd FEP-UI
 
 # Run the application
 docker compose up -d --build
+```
+
+#### Running locally 
+```bash
+npm install
+ng serve
+```

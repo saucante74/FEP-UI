@@ -38,10 +38,4 @@ cd FEP-UI
 docker compose up -d --build
 ```
 
-#### Running locally 
-```bash
-npm install
-ng serve
-```
-
 

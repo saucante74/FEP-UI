@@ -1,5 +1,7 @@
 # FEP-UI
 
+## FEP-UI requires FEP-API to be running.
+
 > **Frontend (Angular) for the Peer-to-Peer Financing System (FEP).**
 
 ### Key Features
@@ -40,3 +42,5 @@ docker compose up -d --build
 npm install
 ng serve
 ```
+
+

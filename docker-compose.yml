@@ -5,5 +5,5 @@ services:
       dockerfile: Dockerfile
     container_name: fep-ui
     ports:
-      - "8081:8080"
+      - "4200:8080"
     restart: unless-stopped

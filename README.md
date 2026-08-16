@@ -1,6 +1,7 @@
 # FEP-UI
 
 ## FEP-UI requires FEP-API to be running.
+### Running on port : 4200
 
 > **Frontend (Angular) for the Peer-to-Peer Financing System (FEP).**
 

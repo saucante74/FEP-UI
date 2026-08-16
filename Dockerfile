@@ -8,7 +8,6 @@ RUN npm install
 COPY . .
 RUN npm run build -- --configuration production
 
-
 FROM nginx:alpine AS serve
 
 RUN mkdir -p /var/cache/nginx/client_temp /var/cache/nginx/proxy_temp \

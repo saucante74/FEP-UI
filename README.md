@@ -31,7 +31,7 @@
 #### Running with Docker
 ```bash
 # Clone the repository
-git clone <REPO_URL>
+git clone https://github.com/saucante74/FEP-UI.git
 cd FEP-UI
 
 # Run the application
